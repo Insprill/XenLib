@@ -68,11 +68,12 @@ public class Command implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
 
         // Help page.
-        if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
+        if (args.length >= 1 && args[0].equalsIgnoreCase("help")) {
 
-            int page = (args.length == 2 && XenMath.isInteger(args[1]))
+            long page = (args.length >= 2 && XenMath.isInteger(args[1]))
                     ? Integer.parseInt(args[1])
                     : 1;
+            page = XenMath.clamp(page, 1, commandArgs.size() / commandsPerPage);
 
             sender.sendMessage(ColourUtils.format("&e===========< &6Help &e>==========="));
 
