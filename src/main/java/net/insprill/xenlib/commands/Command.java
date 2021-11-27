@@ -2,6 +2,7 @@ package net.insprill.xenlib.commands;
 
 import com.google.common.reflect.ClassPath;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import net.insprill.xenlib.ColourUtils;
 import net.insprill.xenlib.XenLib;
@@ -27,10 +28,12 @@ import java.util.stream.Collectors;
 public class Command implements TabExecutor {
 
     private static final String NO_ARG = "NO_ARG";
-    private static final int MAX_COMMANDS_PER_PAGE = 7;
 
     @Getter
     private final Map<String, ICommandArgument> commandArgs = new HashMap<>();
+    @Getter
+    @Setter
+    private int commandsPerPage = 7;
 
     @SneakyThrows
     @SuppressWarnings("UnstableApiUsage")
@@ -74,8 +77,8 @@ public class Command implements TabExecutor {
             sender.sendMessage(ColourUtils.format("&e===========< &6Help &e>==========="));
 
             List<Map.Entry<String, ICommandArgument>> argEntries = commandArgs.entrySet().stream()
-                    .skip(MAX_COMMANDS_PER_PAGE * page)
-                    .limit(MAX_COMMANDS_PER_PAGE)
+                    .skip(commandsPerPage * (page - 1))
+                    .limit(commandsPerPage)
                     .filter(x -> !x.getKey().equals(NO_ARG))
                     .sorted(Map.Entry.comparingByKey())
                     .collect(Collectors.toList());
