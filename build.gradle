@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id "io.freefair.lombok" version "6.2.0"
+    id 'maven-publish'
+}
+
+group 'net.insprill'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://papermc.io/repo/repository/maven-public/' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compileOnly 'org.jetbrains:annotations:23.0.0'
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT' // 1.17 requires Java 16, so we use 1.16 to keep it Java 8 compatible.
+    compileOnly 'net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT'
+}
+
+shadowJar {
+    archiveClassifier.set('')
+
+    minimize()
+}
+
+publishing {
+    publications {
+        XenLib(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
