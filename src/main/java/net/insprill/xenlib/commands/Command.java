@@ -9,6 +9,7 @@ import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.XenMath;
 import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.localization.Lang;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
@@ -75,7 +76,11 @@ public class Command implements TabExecutor {
                     : 1;
             page = XenMath.clamp(page, 1, commandArgs.size() / commandsPerPage);
 
-            sender.sendMessage(ColourUtils.format("&e===========< &6Help &e>==========="));
+            String header = (page == 1)
+                    ? ColourUtils.format("&e===========< &6Help &e>===========")
+                    : ColourUtils.format("&e=======< &6Help &e- &6Page " + page + " &e>=======");
+
+            sender.sendMessage(header);
 
             List<Map.Entry<String, ICommandArgument>> argEntries = commandArgs.entrySet().stream()
                     .skip(commandsPerPage * (page - 1))
@@ -97,7 +102,8 @@ public class Command implements TabExecutor {
                 argumentBuilder.append(" &f- &a").append(entry.getValue().getDescription());
                 sender.sendMessage(ColourUtils.format(argumentBuilder.toString()));
             }
-            int fillerLength = 30 - (XenLib.getPlugin().getName().length() + 4);
+
+            int fillerLength = ChatColor.stripColor(header).length() - (XenLib.getPlugin().getName().length() + 4);
             StringBuilder footerBuilder = new StringBuilder();
             footerBuilder.append("&e");
             for (int i = 0; i < fillerLength >> 1; i++) {
