@@ -117,7 +117,7 @@ public class Command implements TabExecutor {
             Lang.send(sender, "commands.no-permission");
             return true;
         }
-        if (!(sender instanceof Player) && !arg.isPlayerOnly()) {
+        if (!(sender instanceof Player) && arg.isPlayerOnly()) {
             Lang.send(sender, "commands.player-only");
             return true;
         }
