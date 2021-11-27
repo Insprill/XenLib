@@ -139,4 +139,4 @@ Project Link: [https://github.com/Insprill/XenLib](https://github.com/Insprill/X
 [issues-shield]: https://img.shields.io/github/issues/Insprill/XenLib.svg?style=for-the-badge
 [issues-url]: https://github.com/Insprill/XenLib/issues
 [license-shield]: https://img.shields.io/github/license/Insprill/XenLib.svg?style=for-the-badge
-[license-url]: https://github.com/Insprill/XenLib/blob/master/LICENSE.txt
+[license-url]: https://github.com/Insprill/XenLib/blob/master/LICENSE
