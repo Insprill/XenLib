@@ -52,9 +52,9 @@
 ```
 ```xml
     <dependency>
-        <groupId>com.github.Insprill</groupId>
+        <groupId>net.insprill</groupId>
         <artifactId>XenLib</artifactId>
-        <version>1.0.0</version>
+        <version>version</version>
         <scope>provided</scope>
     </dependency>
 ```
@@ -66,9 +66,10 @@ repositories {
 ```
 ```groovy
 dependencies {
-    implementation group: 'com.github.Insprill', name: 'XenLib', version: '1.0.0'
+    implementation group: 'net.insprill', name: 'XenLib', version: 'version'
 }
 ```
+Versions can be found [here](https://jitpack.io/#Insprill/XenLib).  
 
 ### Using the library
 In your plugin's onEnable, call `new XenLib(this);` to initialize the API.  
