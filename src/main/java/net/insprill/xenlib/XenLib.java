@@ -1,6 +1,7 @@
 package net.insprill.xenlib;
 
 import net.insprill.xenlib.localization.Lang;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class XenLib {
@@ -16,6 +17,10 @@ public class XenLib {
     }
 
     public static JavaPlugin getPlugin() {
+        if (instance == null || instance.plugin == null) {
+            Bukkit.getLogger().severe("XenLib plugin instance is null! Did you forget to initialize it in your onEnable?");
+            return null;
+        }
         return instance.plugin;
     }
 
