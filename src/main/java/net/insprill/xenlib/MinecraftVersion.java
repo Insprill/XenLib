@@ -28,6 +28,10 @@ public enum MinecraftVersion {
         this.versionNumber = versionNumber;
     }
 
+    public static boolean is(MinecraftVersion version) {
+        return currentVersion.versionNumber == version.getVersionNumber();
+    }
+
     public static boolean isAtLeast(MinecraftVersion version) {
         return currentVersion.versionNumber >= version.getVersionNumber();
     }
