@@ -22,6 +22,28 @@ public final class Lang {
     }
 
     /**
+     * Gets a locale message.
+     *
+     * @param node         Path to the message in the locale file.
+     * @param placeholders Placeholders to replace in the message before sending.
+     * @return The message from the locale file with placeholders and colours filled in.
+     */
+    public static String get(String node, String... placeholders) {
+        YamlFile config = getLocaleConfig();
+        String line = config.getString(node, defaultFile.getString(node));
+        if (line == null) {
+            XenLib.getPlugin().getLogger().severe("Tried to send locale message " + node + " but it doesn't exist!");
+            return null;
+        }
+        line = line.replace("%p%", config.getString("prefix", defaultFile.getString("prefix")));
+        for (String placeholder : placeholders) {
+            String[] data = placeholder.split(PLACEHOLDER_SEPARATOR);
+            line = line.replace(data[0], data[1]);
+        }
+        return line;
+    }
+
+    /**
      * Sends a locale message to CommandSender.
      *
      * @param sender       CommandSender to send message to.
@@ -29,18 +51,10 @@ public final class Lang {
      * @param placeholders Placeholders to replace in the message before sending.
      */
     public static void send(CommandSender sender, String node, String... placeholders) {
-        YamlFile config = getLocaleConfig();
-        String line = config.getString(node, defaultFile.getString(node));
-        if (line == null) {
-            XenLib.getPlugin().getLogger().severe("Tried to send locale message " + node + " but it doesn't exist!");
+        String line = get(node, placeholders);
+        if (line == null)
             return;
-        }
-        line = line.replace("%p%", config.getString("prefix", defaultFile.getString("prefix")));
-        for (String placeholder : placeholders) {
-            String[] data = placeholder.split(PLACEHOLDER_SEPARATOR);
-            line = line.replace(data[0], data[1]);
-        }
-        sender.sendMessage(line);
+        sender.sendMessage(get(node, placeholders));
     }
 
     /**
