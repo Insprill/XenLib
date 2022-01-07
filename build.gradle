@@ -36,6 +36,7 @@ publishing {
 
 def targetJavaVersion = 8
 java {
+    compileJava.options.encoding = 'UTF-8'
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
