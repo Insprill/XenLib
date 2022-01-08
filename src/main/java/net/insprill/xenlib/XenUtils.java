@@ -38,7 +38,7 @@ public class XenUtils {
      * @param def        PermissionDefault to specify if not already registered.
      */
     public static void registerPermission(String permission, PermissionDefault def) {
-        if (permission == null)
+        if (permission == null || permission.isEmpty() || permission.equals("op"))
             return;
         if (Bukkit.getPluginManager().getPermission(permission) != null)
             return;
