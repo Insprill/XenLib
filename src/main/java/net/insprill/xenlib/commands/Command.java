@@ -4,6 +4,7 @@ import com.google.common.reflect.ClassPath;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import net.insprill.xenlib.ClassUtils;
 import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.commands.args.XenLibArgHelp;
@@ -44,7 +45,7 @@ public class Command implements TabExecutor {
         command.setExecutor(this);
         command.setTabCompleter(this);
 
-        Set<Class<?>> classes = new HashSet<>(getClasses(packageName));
+        Set<Class<?>> classes = new HashSet<>(ClassUtils.getClasses(packageName, ICommandArgument.class));
         classes.addAll(Arrays.asList(XenLibArgHelp.class, XenLibArgPlInfo.class)); // When minimized these classes get removed, so it's easier to just manually add them.
 
         for (Class<?> argClass : classes) {
@@ -61,18 +62,6 @@ public class Command implements TabExecutor {
 
             registerCommand(arg);
         }
-    }
-
-    @SneakyThrows
-    @SuppressWarnings("UnstableApiUsage")
-    private static Set<Class<?>> getClasses(String packageName) {
-        return ClassPath.from(XenLib.getPlugin().getClass().getClassLoader())
-                .getAllClasses()
-                .parallelStream()
-                .filter(clazz -> clazz.getPackageName().equalsIgnoreCase(packageName))
-                .map(ClassPath.ClassInfo::load)
-                .filter(ICommandArgument.class::isAssignableFrom)
-                .collect(Collectors.toSet());
     }
 
     public void registerCommand(ICommandArgument arg) {
