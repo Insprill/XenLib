@@ -12,13 +12,14 @@ public class ClassUtils {
 
 	@SneakyThrows
 	@SuppressWarnings("UnstableApiUsage")
-	public Set<Class<?>> getClasses(String packageName, Class<?> targetClazz) {
+	public Set<Class<?>> getClasses(String packageName, Class<?> targetInterface) {
 		return ClassPath.from(XenLib.getPlugin().getClass().getClassLoader())
 				.getAllClasses()
 				.parallelStream()
 				.filter(clazz -> clazz.getPackageName().equalsIgnoreCase(packageName))
 				.map(ClassPath.ClassInfo::load)
-				.filter(targetClazz::isAssignableFrom)
+				.filter(targetInterface::isAssignableFrom)
+				.filter(clazz -> clazz != targetInterface)
 				.collect(Collectors.toSet());
 	}
 
