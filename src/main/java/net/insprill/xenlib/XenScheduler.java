@@ -1,7 +1,9 @@
 package net.insprill.xenlib;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 
+@UtilityClass
 public class XenScheduler {
 
     /**
@@ -9,7 +11,7 @@ public class XenScheduler {
      *
      * @return The Task ID.
      */
-    public static int runTaskLater(Runnable task, long delay) {
+    public int runTaskLater(Runnable task, long delay) {
         return Bukkit.getScheduler().runTaskLater(XenLib.getPlugin(), task, delay).getTaskId();
     }
 
@@ -18,7 +20,7 @@ public class XenScheduler {
      *
      * @return The Task ID.
      */
-    public static int runTaskLater(Runnable task) {
+    public int runTaskLater(Runnable task) {
         return runTaskLater(task, 1L);
     }
 
@@ -29,7 +31,7 @@ public class XenScheduler {
      * @param period       The period between successive executions.
      * @return The Task ID.
      */
-    public static int runTaskTimer(Runnable task, long initialDelay, long period) {
+    public int runTaskTimer(Runnable task, long initialDelay, long period) {
         return Bukkit.getScheduler().runTaskTimer(XenLib.getPlugin(), task, initialDelay, period).getTaskId();
     }
 
@@ -38,7 +40,7 @@ public class XenScheduler {
      *
      * @return The Task ID.
      */
-    public static int runTask(Runnable task) {
+    public int runTask(Runnable task) {
         return Bukkit.getScheduler().runTask(XenLib.getPlugin(), task).getTaskId();
     }
 
@@ -48,7 +50,7 @@ public class XenScheduler {
      *
      * @return The Task ID.
      */
-    public static int runTaskAsync(Runnable task) {
+    public int runTaskAsync(Runnable task) {
         return Bukkit.getScheduler().runTaskAsynchronously(XenLib.getPlugin(), task).getTaskId();
     }
 

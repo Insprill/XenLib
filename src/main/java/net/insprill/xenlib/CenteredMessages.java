@@ -1,17 +1,19 @@
 package net.insprill.xenlib;
 
 import lombok.Getter;
+import lombok.experimental.UtilityClass;
 
 /**
  * https://www.spigotmc.org/threads/95872/
  *
  * @author SirSpoodles
  */
+@UtilityClass
 public class CenteredMessages {
 
     private final static int CENTER_PX = 154;
 
-    public static String centerMessage(String message) {
+    public String centerMessage(String message) {
         if (message == null || message.isEmpty())
             return "";
 

@@ -4,7 +4,7 @@ import net.insprill.xenlib.localization.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class XenLib {
+public final class XenLib {
 
     private static XenLib instance;
     private final JavaPlugin plugin;

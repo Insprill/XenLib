@@ -1,5 +1,8 @@
 package net.insprill.xenlib;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class XenMath {
 
     /**
@@ -10,7 +13,7 @@ public class XenMath {
      * @param max The maximum value.
      * @return An int between the min and max values.
      */
-    public static int clamp(int val, int min, int max) {
+    public int clamp(int val, int min, int max) {
         return Math.max(min, Math.min(max, val));
     }
 
@@ -22,7 +25,7 @@ public class XenMath {
      * @param max The maximum value.
      * @return A long between the min and max values.
      */
-    public static long clamp(long val, long min, long max) {
+    public long clamp(long val, long min, long max) {
         return Math.max(min, Math.min(max, val));
     }
 
@@ -34,7 +37,7 @@ public class XenMath {
      * @param max The maximum value.
      * @return A float between the min and max values.
      */
-    public static float clamp(float val, float min, float max) {
+    public float clamp(float val, float min, float max) {
         return Math.max(min, Math.min(max, val));
     }
 
@@ -46,7 +49,7 @@ public class XenMath {
      * @param max The maximum value.
      * @return A double between the min and max values.
      */
-    public static double clamp(double val, double min, double max) {
+    public double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
     }
 
@@ -56,7 +59,7 @@ public class XenMath {
      * @param val String to check.
      * @return True if the String is a valid Integer, false otherwise.
      */
-    public static boolean isInteger(String val) {
+    public boolean isInteger(String val) {
         try {
             Integer.parseInt(val);
             return true;
@@ -71,7 +74,7 @@ public class XenMath {
      * @param val String to check.
      * @return True if the String is a valid Long, false otherwise.
      */
-    public static boolean isLong(String val) {
+    public boolean isLong(String val) {
         try {
             Long.parseLong(val);
             return true;
@@ -86,7 +89,7 @@ public class XenMath {
      * @param val String to check.
      * @return True if the String is a valid Float, false otherwise.
      */
-    public static boolean isFloat(String val) {
+    public boolean isFloat(String val) {
         try {
             Float.parseFloat(val);
             return true;
@@ -101,7 +104,7 @@ public class XenMath {
      * @param val String to check.
      * @return True if the String is a valid Double, false otherwise.
      */
-    public static boolean isDouble(String val) {
+    public boolean isDouble(String val) {
         try {
             Double.parseDouble(val);
             return true;

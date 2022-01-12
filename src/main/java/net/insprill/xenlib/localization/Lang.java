@@ -1,5 +1,6 @@
 package net.insprill.xenlib.localization;
 
+import lombok.experimental.UtilityClass;
 import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.files.YamlFile;
 import net.insprill.xenlib.files.YamlFolder;
@@ -7,7 +8,8 @@ import org.bukkit.command.CommandSender;
 
 import java.io.InputStreamReader;
 
-public final class Lang {
+@UtilityClass
+public class Lang {
 
     private static final String PLACEHOLDER_SEPARATOR = ";";
     private static final String DEFAULT_LOCALE = "en-us";
@@ -17,7 +19,7 @@ public final class Lang {
     /**
      * Initializes the default locale YamlFile.
      */
-    public static void initConfig() {
+    public void initConfig() {
         defaultFile = new YamlFile(new InputStreamReader(XenLib.getPlugin().getResource("locale/" + DEFAULT_LOCALE + ".yml")));
     }
 
@@ -28,7 +30,7 @@ public final class Lang {
      * @param placeholders Placeholders to replace in the message before sending.
      * @return The message from the locale file with placeholders and colours filled in.
      */
-    public static String get(String node, String... placeholders) {
+    public String get(String node, String... placeholders) {
         YamlFile config = getLocaleConfig();
         String line = config.getString(node, defaultFile.getString(node));
         if (line == null) {
@@ -50,7 +52,7 @@ public final class Lang {
      * @param node         Path to the message in the locale file.
      * @param placeholders Placeholders to replace in the message before sending.
      */
-    public static void send(CommandSender sender, String node, String... placeholders) {
+    public void send(CommandSender sender, String node, String... placeholders) {
         String line = get(node, placeholders);
         if (line == null)
             return;
@@ -60,7 +62,7 @@ public final class Lang {
     /**
      * @return The YamlFile for the selected language, or the default if selected language doesn't exist.
      */
-    private static YamlFile getLocaleConfig() {
+    private YamlFile getLocaleConfig() {
         String selectedLocale = YamlFile.CONFIG.getString("language", DEFAULT_LOCALE);
         YamlFile config = YamlFolder.LOCALE.getDataFile(selectedLocale);
         if (config == null) {

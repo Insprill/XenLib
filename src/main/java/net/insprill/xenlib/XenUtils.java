@@ -1,9 +1,11 @@
 package net.insprill.xenlib;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
+@UtilityClass
 public class XenUtils {
 
     /**
@@ -13,7 +15,7 @@ public class XenUtils {
      * @param name     Name to check.
      * @return True if the String is a valid enum, false otherwise.
      */
-    public static <T extends Enum<T>> boolean isValidEnum(Class<T> enumType, String name) {
+    public <T extends Enum<T>> boolean isValidEnum(Class<T> enumType, String name) {
         try {
             Enum.valueOf(enumType, name);
             return true;
@@ -27,7 +29,7 @@ public class XenUtils {
      *
      * @param permission Permission to register.
      */
-    public static void registerPermission(String permission) {
+    public void registerPermission(String permission) {
         registerPermission(permission, null);
     }
 
@@ -37,7 +39,7 @@ public class XenUtils {
      * @param permission Permission to register.
      * @param def        PermissionDefault to specify if not already registered.
      */
-    public static void registerPermission(String permission, PermissionDefault def) {
+    public void registerPermission(String permission, PermissionDefault def) {
         if (permission == null || permission.isEmpty() || permission.equals("op"))
             return;
         if (Bukkit.getPluginManager().getPermission(permission) != null)
