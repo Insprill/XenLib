@@ -20,4 +20,18 @@ public class Pair<K, V> implements Serializable {
     @Setter
     private V second;
 
+    /**
+     * @return True if first isn't null, false otherwise.
+     */
+    public boolean hasFirst() {
+        return first != null;
+    }
+
+    /**
+     * @return True if second isn't null, false otherwise.
+     */
+    public boolean hasSecond() {
+        return second != null;
+    }
+
 }
