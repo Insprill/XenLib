@@ -3,6 +3,7 @@ package net.insprill.xenlib.files;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import net.insprill.xenlib.ColourUtils;
+import net.insprill.xenlib.Conversions;
 import net.insprill.xenlib.XenLib;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -245,6 +246,11 @@ public class YamlFile {
         return section.getKeys(false);
     }
 
+    @NotNull
+    public Class<?> getDataType(String path) {
+        return null;
+    }
+
     /**
      * Gets a {@link Object} from the config.
      *
@@ -354,7 +360,7 @@ public class YamlFile {
      */
     public boolean getBoolean(String path, boolean def) {
         update(path, def);
-        return cfg.getBoolean(path, def);
+        return Conversions.toBoolean(cfg.get(path, def), def);
     }
 
     /**
