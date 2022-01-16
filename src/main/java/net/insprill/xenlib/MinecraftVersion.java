@@ -41,19 +41,17 @@ public enum MinecraftVersion {
     }
 
     @Getter
-    private static final String versionString;
-    @Getter
-    private static final MinecraftVersion currentVersion;
+    private static MinecraftVersion currentVersion = MinecraftVersion.UNKNOWN;
 
     static {
-        versionString = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        MinecraftVersion temp = MinecraftVersion.UNKNOWN;
-        try {
-            temp = MinecraftVersion.valueOf(getVersionString());
-        } catch (Exception ex) {
-            XenLib.getPlugin().getLogger().warning("Unknown minecraft version " + getVersionString() + ".");
-        } finally {
-            currentVersion = temp;
+        String[] pckg = Bukkit.getServer().getClass().getPackage().getName().split("\\.");
+        if (pckg.length >= 4) {
+            String versionString = pckg[3];
+            try {
+                currentVersion = MinecraftVersion.valueOf(versionString);
+            } catch (IllegalArgumentException ex) {
+                XenLib.getPlugin().getLogger().warning("Unknown minecraft version " + versionString + ".");
+            }
         }
     }
 
