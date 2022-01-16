@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Pair<K, V> implements Serializable {
 
     private static final long serialVersionUID = 1L;
