@@ -1,18 +1,13 @@
 package net.insprill.xenlib.files;
 
+import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.XenLib;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.security.CodeSource;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -56,27 +51,50 @@ public class YamlFolder {
      */
     private void writeToDisk() {
         try {
-            CodeSource src = XenLib.getPlugin().getClass().getProtectionDomain().getCodeSource();
-            if (src != null) {
-                URL jar = src.getLocation();
-                try (ZipInputStream zip = new ZipInputStream(jar.openStream())) {
-                    while (true) {
-                        ZipEntry e = zip.getNextEntry();
-                        if (e == null) break;
-                        String name = e.getName();
-                        if (!isYamlFile(name)) continue;
-                        if (!name.startsWith(folderName)) continue;
-                        if (!name.contains("/")) continue;
-                        File file = new File(XenLib.getPlugin().getDataFolder(), name);
-                        if (file.isDirectory()) continue;
-                        name = name.replace("/", File.separator);
-                        dataFiles.put(name, new YamlFile(file, autoUpdate));
+            if (MinecraftVersion.isUnitTest()) {
+                File folder = new File(String.join(File.separator, XenLib.getInstance().getUnitTestCompiledResourcesPath()) + File.separator + folderName);
+                for (File file : folder.listFiles()) {
+                    if (file.isDirectory())
+                        continue;
+                    String name = file.getPath();
+                    int idx = name.indexOf(folderName);
+                    if (idx == -1)
+                        continue;
+                    initDefaultFile(name.substring(idx));
+                }
+            } else {
+                CodeSource src = XenLib.getPlugin().getClass().getProtectionDomain().getCodeSource();
+                if (src == null) {
+                    XenLib.getPlugin().getLogger().warning("Failed to find plugin's jar file. Unable to load all default files.");
+                    return;
+                }
+                try (ZipInputStream zip = new ZipInputStream(src.getLocation().openStream())) {
+                    ZipEntry e;
+                    while ((e = zip.getNextEntry()) != null) {
+                        initDefaultFile(e.getName());
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Helper method for YamlFolder#writeToDisk()
+     */
+    private void initDefaultFile(String name) {
+        if (!isYamlFile(name))
+            return;
+        if (!name.startsWith(folderName))
+            return;
+        if (!name.contains("/") && !name.contains("\\"))
+            return;
+        File file = new File(XenLib.getPlugin().getDataFolder(), name);
+        if (file.isDirectory())
+            return;
+        name = name.replace("/", File.separator);
+        dataFiles.put(name, new YamlFile(file, autoUpdate));
     }
 
     /**

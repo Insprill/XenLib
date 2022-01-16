@@ -1,6 +1,7 @@
 package net.insprill.xenlib;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 
 public enum MinecraftVersion {
@@ -39,6 +40,9 @@ public enum MinecraftVersion {
     public static boolean isNew() {
         return isAtLeast(MinecraftVersion.v1_13_R1);
     }
+
+    @Getter @Setter
+    private static boolean unitTest = false;
 
     @Getter
     private static MinecraftVersion currentVersion = MinecraftVersion.UNKNOWN;
