@@ -10,8 +10,8 @@ import org.bukkit.util.Vector;
 public class VectorUtils {
 
     /**
-     * @param entity Entity to get forward direction of.
-     * @return A Vector representing the forward direction of the entity.
+     * @param entity {@link Entity} to get forward direction of.
+     * @return A {@link Vector} representing the forward direction of the entity.
      */
     public Vector getEntityForward(Entity entity) {
         Vector direction = getDirectionNormalized(entity);
@@ -19,8 +19,8 @@ public class VectorUtils {
     }
 
     /**
-     * @param entity Entity to get backward direction of.
-     * @return A Vector representing the backward direction of the entity.
+     * @param entity {@link Entity} to get backward direction of.
+     * @return A {@link Vector} representing the backward direction of the entity.
      */
     public Vector getEntityBackward(Entity entity) {
         Vector direction = getDirectionNormalized(entity);
@@ -28,8 +28,8 @@ public class VectorUtils {
     }
 
     /**
-     * @param entity Entity to get right direction of.
-     * @return A Vector representing the right direction of the entity.
+     * @param entity {@link Entity} to get right direction of.
+     * @return A {@link Vector} representing the right direction of the entity.
      */
     public Vector getEntityRight(Entity entity) {
         Vector direction = getDirectionNormalized(entity);
@@ -37,8 +37,8 @@ public class VectorUtils {
     }
 
     /**
-     * @param entity Entity to get left direction of.
-     * @return A Vector representing the left direction of the entity.
+     * @param entity {@link Entity} to get left direction of.
+     * @return A {@link Vector} representing the left direction of the entity.
      */
     public Vector getEntityLeft(Entity entity) {
         Vector direction = getDirectionNormalized(entity);
@@ -46,14 +46,30 @@ public class VectorUtils {
     }
 
     /**
-     * @param entity Entity to get direction of.
-     * @return A vector representing the normalized direction the entity is facing.
+     * @param entity {@link Entity} to get direction of.
+     * @return A {@link Vector} representing the normalized direction the entity is facing.
      */
     private Vector getDirectionNormalized(Entity entity) {
         Location loc = entity instanceof LivingEntity
                 ? ((LivingEntity) entity).getEyeLocation()
                 : entity.getLocation();
         return loc.getDirection().normalize();
+    }
+
+    /**
+     * Clamps all values of a {@link Vector} between 2 values.
+     *
+     * @param vector {@link Vector} to clamp.
+     * @param min    Minimum value any axis should be.
+     * @param max    Maximum value any axis should be.
+     * @return A clamped {@link Vector},
+     */
+    public Vector clamp(Vector vector, double min, double max) {
+        return new Vector(
+                XenMath.clamp(vector.getX(), min, max),
+                XenMath.clamp(vector.getY(), min, max),
+                XenMath.clamp(vector.getZ(), min, max)
+        );
     }
 
 }
