@@ -10,6 +10,24 @@ import org.bukkit.util.Vector;
 public class VectorUtils {
 
     /**
+     * @param entity Entity to get forward direction of.
+     * @return A Vector representing the forward direction of the entity.
+     */
+    public Vector getEntityForward(Entity entity) {
+        Vector direction = getDirectionNormalized(entity);
+        return new Vector(direction.getX(), 0.0, direction.getZ());
+    }
+
+    /**
+     * @param entity Entity to get backward direction of.
+     * @return A Vector representing the backward direction of the entity.
+     */
+    public Vector getEntityBackward(Entity entity) {
+        Vector direction = getDirectionNormalized(entity);
+        return new Vector(-direction.getX(), 0.0, -direction.getZ());
+    }
+
+    /**
      * @param entity Entity to get right direction of.
      * @return A Vector representing the right direction of the entity.
      */
