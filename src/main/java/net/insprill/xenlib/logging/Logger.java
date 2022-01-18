@@ -1,4 +1,4 @@
-package net.insprill.xenlib;
+package net.insprill.xenlib.logging;
 
 import lombok.Setter;
 import lombok.experimental.UtilityClass;

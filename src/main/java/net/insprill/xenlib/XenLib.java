@@ -3,6 +3,7 @@ package net.insprill.xenlib;
 import lombok.Getter;
 import lombok.Setter;
 import net.insprill.xenlib.localization.Lang;
+import net.insprill.xenlib.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +20,7 @@ public final class XenLib {
         instance = this;
 
         Lang.initConfig();
+        Logger.setPlugin(plugin);
     }
 
     public static JavaPlugin getPlugin() {
