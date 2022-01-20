@@ -46,6 +46,19 @@ public class VectorUtils {
     }
 
     /**
+     * Gets the direction from one {@link Entity} to another.
+     *
+     * @param start {@link Entity} to start at.
+     * @param end   {@link Entity} to end at.
+     * @return Direction from starting {@link Entity} to ending {@link Entity}.
+     */
+    public Vector getDirectionTo(Entity start, Entity end) {
+        if (start.getWorld() != end.getWorld())
+            return new Vector();
+        return start.getLocation().toVector().subtract(end.getLocation().toVector());
+    }
+
+    /**
      * @param entity {@link Entity} to get direction of.
      * @return A {@link Vector} representing the normalized direction the entity is facing.
      */
