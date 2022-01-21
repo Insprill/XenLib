@@ -43,6 +43,7 @@
 ## Usage
 
 ### Implementing in your project
+[![Release](https://jitpack.io/v/Insprill/XenLib.svg)](https://jitpack.io/#Insprill/XenLib)
 #### Maven
 ```xml
     <repository>
@@ -69,7 +70,7 @@ dependencies {
     implementation group: 'net.insprill', name: 'XenLib', version: 'version'
 }
 ```
-Versions can be found [here](https://jitpack.io/#Insprill/XenLib).  
+All versions can be found [here](https://jitpack.io/#Insprill/XenLib). 
 
 ### Using the library
 In your plugin's onEnable, call `new XenLib(this);` to initialize the API.  
