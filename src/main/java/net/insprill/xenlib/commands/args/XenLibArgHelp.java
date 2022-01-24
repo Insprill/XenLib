@@ -9,6 +9,7 @@ import net.insprill.xenlib.commands.Command;
 import net.insprill.xenlib.commands.ICommandArgument;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,9 +65,12 @@ public class XenLibArgHelp implements ICommandArgument {
                 .collect(Collectors.toList());
 
         for (Map.Entry<String, ICommandArgument> entry : argEntries) {
+            ICommandArgument argument = entry.getValue();
+            if (argument.isPlayerOnly() && !(sender instanceof Player))
+                continue;
             StringBuilder argumentBuilder = new StringBuilder();
             argumentBuilder.append("&2/").append(label).append(" ").append(entry.getKey());
-            for (Map.Entry<String, Boolean> argEntry : entry.getValue().getSubArgs().entrySet()) {
+            for (Map.Entry<String, Boolean> argEntry : argument.getSubArgs().entrySet()) {
                 boolean optional = argEntry.getValue();
                 argumentBuilder.append(" ");
                 argumentBuilder.append((optional) ? "&7(" : "&8[");
