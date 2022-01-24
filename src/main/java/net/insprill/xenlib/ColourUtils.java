@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class ColourUtils {
 
-    private static final Pattern hexPattern = Pattern.compile("[?:{&]#[a-fA-F0-9]{6}}?");
-    private static final Pattern normalPattern = Pattern.compile("([\u00A7&])[0-9a-fA-Fk-orK-OR]");
+    public static final Pattern hexPattern = Pattern.compile("[?:{&]#[a-fA-F0-9]{6}}?");
+    public static final Pattern legacyPattern = Pattern.compile("([\u00A7&])[0-9a-fA-Fk-orK-OR]");
 
     /**
      * Replaces colour codes with actual colours, and if on 1.16+, hex colour codes.
@@ -74,7 +74,7 @@ public class ColourUtils {
             end = m.end();
             lastKnownColor = string.substring(m.start(), m.end());
         }
-        Matcher m2 = normalPattern.matcher(string);
+        Matcher m2 = legacyPattern.matcher(string);
         while (m2.find()) {
             if (m2.end() < end)
                 continue;
