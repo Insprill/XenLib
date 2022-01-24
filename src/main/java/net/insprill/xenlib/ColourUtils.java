@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class ColourUtils {
 
-    public static final Pattern hexPattern = Pattern.compile("[?:{&]#[a-fA-F0-9]{6}}?");
+    public static final Pattern hexPattern = Pattern.compile("#[a-fA-F0-9]{6}");
+    public static final Pattern formattedHexPattern = Pattern.compile("[?:{&]?#[a-fA-F0-9]{6}}?");
     public static final Pattern legacyPattern = Pattern.compile("([\u00A7&])[0-9a-fA-Fk-orK-OR]");
 
     /**
@@ -22,13 +23,14 @@ public class ColourUtils {
     public String format(String string) {
         if (string == null || string.isEmpty()) return string;
         if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_16_R1)) {
-            Matcher match = hexPattern.matcher(string);
-            while (match.find()) {
-                String hex = match.group().substring(1); // first character is either a '&' or '{', neither of which we want.
-                if (hex.endsWith("}"))
-                    hex = hex.substring(0, hex.length() - 1);
-                string = string.replace(match.group(), ChatColor.of(hex).toString());
-                match = hexPattern.matcher(string);
+            Matcher formattedMatcher = formattedHexPattern.matcher(string);
+            while (formattedMatcher.find()) {
+                String hex = formattedMatcher.group();
+                Matcher hexMatcher = hexPattern.matcher(hex);
+                if (hexMatcher.find()) {
+                    string = string.replace(formattedMatcher.group(), ChatColor.of(hexMatcher.group()).toString());
+                    formattedMatcher = formattedHexPattern.matcher(string);
+                }
             }
         }
         return ChatColor.translateAlternateColorCodes('&', string);
