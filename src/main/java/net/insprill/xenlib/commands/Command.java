@@ -73,7 +73,7 @@ public class Command implements TabExecutor {
             return;
         }
         XenUtils.registerPermission(arg.getPermission());
-        commandArgs.put(arg.getBaseArg(), arg);
+        commandArgs.put(arg.getBaseArg().toLowerCase(Locale.ENGLISH), arg);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Command implements TabExecutor {
                     .filter(e -> !e.equals(NO_ARG))
                     .collect(Collectors.toList());
         } else {
-            ICommandArgument arg = commandArgs.get(args[0]);
+            ICommandArgument arg = commandArgs.get(args[0].toLowerCase(Locale.ENGLISH));
 
             if (arg == null)
                 return Collections.emptyList();
