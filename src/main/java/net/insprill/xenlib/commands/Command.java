@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -77,7 +78,7 @@ public class Command implements TabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        ICommandArgument arg = (args.length == 0) ? commandArgs.get(NO_ARG) : commandArgs.get(args[0]);
+        ICommandArgument arg = (args.length == 0) ? commandArgs.get(NO_ARG) : commandArgs.get(args[0].toLowerCase(Locale.ENGLISH));
 
         if (arg == null) {
             Lang.send(sender, "commands.unknown-command", "%label%;" + label);
