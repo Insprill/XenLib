@@ -436,9 +436,9 @@ public class YamlFile {
         if (hexMatcher.find()) {
             return Color.fromRGB(java.awt.Color.decode(hexMatcher.group()).getRGB());
         } else {
-            int red = getInt(path + ".color.red", 255);
-            int green = getInt(path + ".color.green", 255);
-            int blue = getInt(path + ".color.blue", 255);
+            int red = getInt(path + ".red", 255);
+            int green = getInt(path + ".green", 255);
+            int blue = getInt(path + ".blue", 255);
             return Color.fromRGB(
                     XenMath.clamp(red, 0, 255),
                     XenMath.clamp(green, 0, 255),
