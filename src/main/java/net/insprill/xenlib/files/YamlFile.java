@@ -5,6 +5,8 @@ import lombok.SneakyThrows;
 import net.insprill.xenlib.ColourUtils;
 import net.insprill.xenlib.Conversions;
 import net.insprill.xenlib.XenLib;
+import net.insprill.xenlib.XenMath;
+import org.bukkit.Color;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -20,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 public class YamlFile {
 
@@ -420,6 +423,28 @@ public class YamlFile {
             }
         }
         return ColourUtils.format(cfg.getStringList(path));
+    }
+
+    /**
+     * Gets a {@link Color} colour the config.
+     *
+     * @param path Path of the colour.
+     * @return A {@link Color} from the config, or white (255, 255, 255) if none is found.
+     */
+    public Color getColour(String path) {
+        Matcher hexMatcher = ColourUtils.hexPattern.matcher(getString(path));
+        if (hexMatcher.find()) {
+            return Color.fromRGB(java.awt.Color.decode(hexMatcher.group()).getRGB());
+        } else {
+            int red = getInt(path + ".color.red", 255);
+            int green = getInt(path + ".color.green", 255);
+            int blue = getInt(path + ".color.blue", 255);
+            return Color.fromRGB(
+                    XenMath.clamp(red, 0, 255),
+                    XenMath.clamp(green, 0, 255),
+                    XenMath.clamp(blue, 0, 255)
+            );
+        }
     }
 
     /**
