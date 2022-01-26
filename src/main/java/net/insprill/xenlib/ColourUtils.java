@@ -29,7 +29,7 @@ public class ColourUtils {
                 Matcher hexMatcher = hexPattern.matcher(hex);
                 if (hexMatcher.find()) {
                     string = string.replace(formattedMatcher.group(), ChatColor.of(hexMatcher.group()).toString());
-                    formattedMatcher = formattedHexPattern.matcher(string);
+                    formattedMatcher.reset(string);
                 }
             }
         }
