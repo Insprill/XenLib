@@ -3,16 +3,23 @@ package net.insprill.xenlib;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 
+import java.util.concurrent.CompletableFuture;
+
 @UtilityClass
 public class XenScheduler {
 
     /**
      * Runs a Runnable after a certain amount of ticks.
      *
-     * @return The Task ID.
+     * @return Future that completes after the task has been run.
      */
-    public int runTaskLater(Runnable task, long delay) {
-        return Bukkit.getScheduler().runTaskLater(XenLib.getPlugin(), task, delay).getTaskId();
+    public CompletableFuture<Void> runTaskLater(Runnable task, long delay) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        Bukkit.getScheduler().runTaskLater(XenLib.getPlugin(), () -> {
+            task.run();
+            future.complete(null);
+        }, delay);
+        return future;
     }
 
     /**
@@ -20,7 +27,7 @@ public class XenScheduler {
      *
      * @return The Task ID.
      */
-    public int runTaskLater(Runnable task) {
+    public CompletableFuture<Void> runTaskLater(Runnable task) {
         return runTaskLater(task, 1L);
     }
 
@@ -40,18 +47,27 @@ public class XenScheduler {
      *
      * @return The Task ID.
      */
-    public int runTask(Runnable task) {
-        return Bukkit.getScheduler().runTask(XenLib.getPlugin(), task).getTaskId();
+    public CompletableFuture<Void> runTask(Runnable task) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        Bukkit.getScheduler().runTask(XenLib.getPlugin(), () -> {
+            task.run();
+            future.complete(null);
+        });
+        return future;
     }
-
 
     /**
      * Runs a Runnable asynchronously.
      *
      * @return The Task ID.
      */
-    public int runTaskAsync(Runnable task) {
-        return Bukkit.getScheduler().runTaskAsynchronously(XenLib.getPlugin(), task).getTaskId();
+    public CompletableFuture<Void> runTaskAsync(Runnable task) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        Bukkit.getScheduler().runTaskAsynchronously(XenLib.getPlugin(), () -> {
+            task.run();
+            future.complete(null);
+        });
+        return future;
     }
 
 }
