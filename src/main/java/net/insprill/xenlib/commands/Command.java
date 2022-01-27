@@ -123,7 +123,7 @@ public class Command implements TabExecutor {
         return completions;
     }
 
-    private boolean hasPermission(CommandSender sender, ICommandArgument arg) {
+    public static boolean hasPermission(CommandSender sender, ICommandArgument arg) {
         String perm = arg.getPermission();
         if (perm == null || perm.isEmpty()) {
             return true;

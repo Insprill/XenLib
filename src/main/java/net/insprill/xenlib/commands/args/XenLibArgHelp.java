@@ -61,6 +61,7 @@ public class XenLibArgHelp implements ICommandArgument {
                 .skip(commandsPerPage * (page - 1))
                 .limit(commandsPerPage)
                 .filter(x -> !x.getKey().equals(Command.NO_ARG))
+                .filter(x -> Command.hasPermission(sender, x.getValue()))
                 .sorted(Map.Entry.comparingByKey())
                 .collect(Collectors.toList());
 
