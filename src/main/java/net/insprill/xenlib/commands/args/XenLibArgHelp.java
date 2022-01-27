@@ -100,7 +100,6 @@ public class XenLibArgHelp implements ICommandArgument {
             return null;
 
         List<String> returnArgs = new ArrayList<>();
-        System.out.println(Math.ceil((float) cmd.getCommandArgs().size() / (float) commandsPerPage));
         for (int i = 1; i <= Math.ceil((float) cmd.getCommandArgs().size() / (float) commandsPerPage); i++) {
             returnArgs.add(i + "");
         }
