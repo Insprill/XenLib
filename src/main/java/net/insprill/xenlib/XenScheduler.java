@@ -70,4 +70,18 @@ public class XenScheduler {
         return future;
     }
 
+    /**
+     * Runs a Runnable after a certain amount of ticks.
+     *
+     * @return Future that completes after the task has been run.
+     */
+    public CompletableFuture<Void> runTaskAsyncLater(Runnable task, long delay) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        Bukkit.getScheduler().runTaskLaterAsynchronously(XenLib.getPlugin(), () -> {
+            task.run();
+            future.complete(null);
+        }, delay);
+        return future;
+    }
+
 }
