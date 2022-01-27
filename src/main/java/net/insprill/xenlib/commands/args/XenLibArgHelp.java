@@ -49,9 +49,9 @@ public class XenLibArgHelp implements ICommandArgument {
         long page = (args.length >= 2 && XenMath.isInteger(args[1]))
                 ? Integer.parseInt(args[1])
                 : 1;
-        page = XenMath.clamp(page, 1, cmd.getCommandArgs().size() / commandsPerPage);
+        page = XenMath.clamp(page, 1, getPageCount());
 
-        String header = (page == 1)
+        String header = (getPageCount() == 1)
                 ? ColourUtils.format("&e===========< &6Help &e>===========")
                 : ColourUtils.format("&e=======< &6Help &e- &6Page " + page + " &e>=======");
 
@@ -95,13 +95,17 @@ public class XenLibArgHelp implements ICommandArgument {
         sender.sendMessage(ColourUtils.format(footerBuilder.toString()));
     }
 
+    private int getPageCount() {
+        return (int) Math.ceil((float) cmd.getCommandArgs().size() / (float) commandsPerPage);
+    }
+
     @Override
     public @Nullable List<String> tabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
         if (args.length != 2)
             return null;
 
         List<String> returnArgs = new ArrayList<>();
-        for (int i = 1; i <= Math.ceil((float) cmd.getCommandArgs().size() / (float) commandsPerPage); i++) {
+        for (int i = 1; i <= getPageCount(); i++) {
             returnArgs.add(i + "");
         }
         return returnArgs;
