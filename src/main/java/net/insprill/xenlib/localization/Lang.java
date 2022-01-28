@@ -34,7 +34,8 @@ public class Lang {
         YamlFile config = getLocaleConfig();
         String line = config.getString(node, defaultFile.getString(node));
         if (line == null) {
-            XenLib.getPlugin().getLogger().severe("Tried to send locale message " + node + " but it doesn't exist!");
+            XenLib.getPlugin().getLogger().severe("Tried to send locale message '" + node + "' but it doesn't exist! " +
+                    "Please contact author(s) " + XenLib.getPlugin().getDescription().getAuthors() + " of " + XenLib.getPlugin().getName() + ".");
             return null;
         }
         line = line.replace("%p%", config.getString("prefix", defaultFile.getString("prefix")));
@@ -67,7 +68,7 @@ public class Lang {
         YamlFile config = YamlFolder.LOCALE.getDataFile(selectedLocale);
         if (config == null) {
             config = YamlFolder.LOCALE.getDataFile(DEFAULT_LOCALE);
-            XenLib.getPlugin().getLogger().severe("Locale file " + selectedLocale + " could not be found! Defaulting to " + DEFAULT_LOCALE + ".");
+            XenLib.getPlugin().getLogger().severe("Locale file '" + selectedLocale + "' could not be found! Defaulting to " + DEFAULT_LOCALE + ".");
         }
         return config;
     }
