@@ -12,7 +12,6 @@ public class ColourUtils {
 
     public static final Pattern hexPattern = Pattern.compile("#[a-fA-F0-9]{6}");
     public static final Pattern formattedHexPattern = Pattern.compile("[?:{<&]?#[a-fA-F0-9]{6}[}>]?");
-    public static final Pattern legacyPattern = Pattern.compile("([\u00A7&])[0-9a-fA-Fk-orK-OR]");
 
     /**
      * Replaces colour codes with actual colours, and if on 1.16+, hex colour codes.
@@ -60,29 +59,6 @@ public class ColourUtils {
             strings.set(i, ChatColor.stripColor(strings.get(i)));
         }
         return strings;
-    }
-
-    /**
-     * Gets the last known colour of a string.
-     *
-     * @param string String to get last colour from.
-     * @return Regular or HEX colour code of the last known colour from the provided String.
-     */
-    public String getLastColor(String string) {
-        String lastKnownColor = "";
-        int end = 0;
-        Matcher m = hexPattern.matcher(string);
-        while (m.find()) {
-            end = m.end();
-            lastKnownColor = string.substring(m.start(), m.end());
-        }
-        Matcher m2 = legacyPattern.matcher(string);
-        while (m2.find()) {
-            if (m2.end() < end)
-                continue;
-            lastKnownColor = string.substring(m2.start(), m2.end());
-        }
-        return lastKnownColor;
     }
 
 }
