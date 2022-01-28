@@ -51,7 +51,7 @@ public class YamlFolder {
      * @param autoUpdate Toggles whether defaults that don't exist in the file should be written to disk.
      */
     public YamlFolder(String folderName, boolean autoUpdate) {
-        this.folderName = folderName;
+        this.folderName = folderName.replace("/", File.separator).replace("\\", File.separator);
         this.autoUpdate = autoUpdate;
         File dir = XenLib.getPlugin().getDataFolder();
         folder = new File(dir.getAbsolutePath() + File.separator + folderName);
