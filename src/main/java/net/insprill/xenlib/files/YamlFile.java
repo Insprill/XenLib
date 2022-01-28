@@ -222,6 +222,13 @@ public class YamlFile {
         return file.getAbsolutePath().replace(XenLib.getPlugin().getDataFolder().getAbsolutePath() + File.separator, "").replace(File.separatorChar, '/');
     }
 
+    /**
+     * @return The name of the file without its extension.
+     */
+    public String getName() {
+        String fileName = getFile().getName();
+        return fileName.substring(0, fileName.lastIndexOf('.'));
+    }
 
     //<editor-fold desc="Getters / Setters">
 
