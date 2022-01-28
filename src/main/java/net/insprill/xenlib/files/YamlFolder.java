@@ -7,7 +7,12 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.security.CodeSource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -101,14 +106,14 @@ public class YamlFolder {
      * Creates folder, loads existing files if applicable, and writes default files if folder didn't already exist.
      */
     private void init() {
-        boolean exists = true;
         if (!folder.exists() || !folder.isDirectory()) {
             folder.mkdirs();
-            exists = false;
         }
-        initExisting();
-        if (!exists)
+        if (folder.listFiles().length == 0) {
             writeToDisk();
+        } else {
+            initExisting();
+        }
     }
 
     /**
