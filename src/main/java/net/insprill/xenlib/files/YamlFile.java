@@ -65,7 +65,7 @@ public class YamlFile {
         this.autoUpdate = autoUpdate;
         assert name != null : "File name cannot be null!";
         name = name.endsWith(".yml") ? name : name + ".yml";
-        name = name.replace("/", File.separator);
+        name = name.replace("/", File.separator).replace("\\", File.separator);
         file = new File(XenLib.getPlugin().getDataFolder() + File.separator + name);
         writeFileIfNotExists();
         reload();
