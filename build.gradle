@@ -1,12 +1,15 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id "io.freefair.lombok" version "6.3.0"
     id 'maven-publish'
 }
 
 group 'net.insprill'
 version '1.0.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+compileJava.options.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
@@ -20,27 +23,10 @@ dependencies {
     compileOnly 'net.md-5:bungeecord-api:1.18-R0.1-SNAPSHOT'
 }
 
-shadowJar {
-    archiveClassifier.set('')
-
-    minimize()
-}
-
 publishing {
     publications {
         XenLib(MavenPublication) {
             from components.java
         }
-    }
-}
-
-def targetJavaVersion = 8
-java {
-    compileJava.options.encoding = 'UTF-8'
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
 }

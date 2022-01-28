@@ -83,7 +83,7 @@ To shade it with Gradle, you'll need to use the Shadow plugin. Usage instruction
 ### Compiling
 
 To compile XenLib, you need JDK 8 or higher and an internet connection.  
-Clone this repo, then run `./gradlew shadowJar` from your terminal.  
+Clone this repo, then run `./gradlew build` from your terminal.  
 You can find the compiled jar in the `build/libs` directory.  
 If you wish to install it to your local Maven repository, run `gradlew publishToMavenLocal` after compiling.
 
