@@ -1,5 +1,7 @@
 package net.insprill.xenlib.files;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.XenLib;
 import org.jetbrains.annotations.Nullable;
@@ -19,13 +21,18 @@ import java.util.zip.ZipInputStream;
 /**
  * Wrapper class that stores nested {@link YamlFile}s in a folder.
  */
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class YamlFolder {
 
     public static final YamlFolder LOCALE = new YamlFolder("locale");
 
     private final Map<String, YamlFile> dataFiles = new HashMap<>();
     private final String folderName;
+    @ToString.Include
+    @EqualsAndHashCode.Include
     private final File folder;
+    @ToString.Include
     private final boolean autoUpdate;
 
     /**

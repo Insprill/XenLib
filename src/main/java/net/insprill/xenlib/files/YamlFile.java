@@ -1,7 +1,9 @@
 package net.insprill.xenlib.files;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.ToString;
 import net.insprill.xenlib.ColourUtils;
 import net.insprill.xenlib.Conversions;
 import net.insprill.xenlib.XenLib;
@@ -24,18 +26,24 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class YamlFile {
 
     public static final YamlFile CONFIG = new YamlFile("config.yml");
 
     @Getter
+    @ToString.Include
+    @EqualsAndHashCode.Include
     private final File file;
     @Getter
     private YamlConfiguration cfg;
     private YamlConfiguration internalCfg = new YamlConfiguration();
+    @ToString.Include
     private boolean autoUpdate = true;
 
     @Getter
+    @ToString.Include
     private boolean isLoaded = false;
 
     /**
@@ -216,6 +224,7 @@ public class YamlFile {
 
 
     //<editor-fold desc="Getters / Setters">
+
     /**
      * Checks if a path exists in the config.
      *
