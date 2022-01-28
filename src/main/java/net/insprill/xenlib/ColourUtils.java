@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class ColourUtils {
 
     public static final Pattern hexPattern = Pattern.compile("#[a-fA-F0-9]{6}");
-    public static final Pattern formattedHexPattern = Pattern.compile("[?:{&]?#[a-fA-F0-9]{6}}?");
+    public static final Pattern formattedHexPattern = Pattern.compile("[?:{<&]?#[a-fA-F0-9]{6}[}>]?");
     public static final Pattern legacyPattern = Pattern.compile("([\u00A7&])[0-9a-fA-Fk-orK-OR]");
 
     /**
