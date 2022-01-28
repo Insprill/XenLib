@@ -29,6 +29,13 @@ public enum MinecraftVersion {
         this.versionNumber = versionNumber;
     }
 
+    public String getDisplayName() {
+        StringBuilder sb = new StringBuilder(String.valueOf(versionNumber));
+        sb.insert(1, '.');
+        sb.insert((sb.length() >= 4) ? 3 : 2, '.');
+        return sb.toString();
+    }
+
     public static boolean is(MinecraftVersion version) {
         return currentVersion.versionNumber == version.getVersionNumber();
     }
