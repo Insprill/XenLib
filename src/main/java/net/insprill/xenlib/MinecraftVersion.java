@@ -41,7 +41,9 @@ public enum MinecraftVersion {
         return isAtLeast(MinecraftVersion.v1_13_R1);
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
+    @SuppressWarnings("NonFinalFieldInEnum")
     private static boolean unitTest = false;
 
     @Getter

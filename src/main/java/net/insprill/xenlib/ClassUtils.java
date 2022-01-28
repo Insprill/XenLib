@@ -12,7 +12,7 @@ public class ClassUtils {
 
 	@SneakyThrows
 	@SuppressWarnings("UnstableApiUsage")
-	public Set<Class<?>> getClasses(String packageName, Class<?> targetInterface) {
+	public Set<Class<?>> getImplementingClasses(String packageName, Class<?> targetInterface) {
 		return ClassPath.from(XenLib.getPlugin().getClass().getClassLoader())
 				.getAllClasses()
 				.parallelStream()

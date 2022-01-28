@@ -1,6 +1,5 @@
 package net.insprill.xenlib.commands;
 
-import com.google.common.reflect.ClassPath;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -46,7 +45,7 @@ public class Command implements TabExecutor {
         command.setExecutor(this);
         command.setTabCompleter(this);
 
-        Set<Class<?>> classes = new HashSet<>(ClassUtils.getClasses(packageName, ICommandArgument.class));
+        Set<Class<?>> classes = new HashSet<>(ClassUtils.getImplementingClasses(packageName, ICommandArgument.class));
         classes.addAll(Arrays.asList(XenLibArgHelp.class, XenLibArgPlInfo.class)); // When minimized these classes get removed, so it's easier to just manually add them.
 
         for (Class<?> argClass : classes) {
