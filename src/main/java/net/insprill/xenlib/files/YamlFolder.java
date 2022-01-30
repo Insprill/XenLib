@@ -132,6 +132,18 @@ public class YamlFolder {
     }
 
     /**
+     * Creates a new {@link YamlFile} in the folder.
+     *
+     * @param name Name of the {@link YamlFile} to create.
+     * @return The new {@link YamlFile}.
+     */
+    public YamlFile createFile(String name) {
+        YamlFile file = new YamlFile(folderName + File.separator + name);
+        dataFiles.put(file.getName(), file);
+        return file;
+    }
+
+    /**
      * Creates YamlFile's for files that already exist in the directory.
      */
     private void initExisting() {
