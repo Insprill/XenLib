@@ -10,17 +10,18 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ClassUtils {
 
-	@SneakyThrows
-	@SuppressWarnings("UnstableApiUsage")
-	public Set<Class<?>> getImplementingClasses(String packageName, Class<?> targetInterface) {
-		return ClassPath.from(XenLib.getPlugin().getClass().getClassLoader())
-				.getAllClasses()
-				.parallelStream()
-				.filter(clazz -> clazz.getPackageName().equalsIgnoreCase(packageName))
-				.map(ClassPath.ClassInfo::load)
-				.filter(targetInterface::isAssignableFrom)
-				.filter(clazz -> clazz != targetInterface)
-				.collect(Collectors.toSet());
-	}
+    @SneakyThrows
+    @SuppressWarnings({"UnstableApiUsage", "unchecked"})
+    public <T> Set<Class<T>> getImplementingClasses(String packageName, Class<T> targetInterface) {
+        return ClassPath.from(XenLib.getPlugin().getClass().getClassLoader())
+                .getAllClasses()
+                .parallelStream()
+                .filter(clazz -> clazz.getPackageName().equalsIgnoreCase(packageName))
+                .map(ClassPath.ClassInfo::load)
+                .filter(targetInterface::isAssignableFrom)
+                .filter(clazz -> clazz != targetInterface)
+                .map(clazz -> (Class<T>) clazz)
+                .collect(Collectors.toSet());
+    }
 
 }
