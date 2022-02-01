@@ -499,6 +499,13 @@ public class YamlFile {
     }
 
     /**
+     * Clears ALL keys from the configuration.
+     */
+    public void clear() {
+        getKeys("").forEach(key -> set(key, null));
+    }
+
+    /**
      * Writes a value to the file if it doesn't exist.
      *
      * @param path Path to put the value.
