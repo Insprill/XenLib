@@ -47,7 +47,9 @@ public class XenUtils {
         Bukkit.getPluginManager().addPermission(new Permission(permission, def));
     }
 
-    /** Unregisters a permission.
+    /**
+     * Unregisters a permission.
+     *
      * @param permission Permission to unregister.
      */
     public void unregisterPermission(String permission) {
