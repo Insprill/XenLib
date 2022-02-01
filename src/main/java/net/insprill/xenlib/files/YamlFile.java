@@ -442,6 +442,30 @@ public class YamlFile {
     }
 
     /**
+     * Gets a {@link List} from the config. Doesn't insert colours in Strings.
+     *
+     * @param path Path of the List.
+     * @return The List from the config, or the default if it doesn't exist.
+     */
+    @Nullable
+    public List<?> getList(String path) {
+        return cfg.getList(path);
+    }
+
+    /**
+     * Gets a {@link List} from the config, or writes the default if it doesn't exist. Doesn't insert colours in Strings.
+     *
+     * @param path Path of the List.
+     * @param def  List to write if it doesn't exist.
+     * @return The List from the config, or the default if it doesn't exist.
+     */
+    @Nullable
+    public List<?> getList(String path, List<?> def) {
+        update(path, def);
+        return cfg.getList(path, def);
+    }
+
+    /**
      * Gets a {@link Color} colour the config.
      *
      * @param path Path of the colour.
