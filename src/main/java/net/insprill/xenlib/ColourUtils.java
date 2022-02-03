@@ -21,7 +21,7 @@ public class ColourUtils {
      */
     public String format(String string) {
         if (string == null || string.isEmpty()) return string;
-        if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_16_R1)) {
+        if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_16_0)) {
             Matcher formattedMatcher = formattedHexPattern.matcher(string);
             while (formattedMatcher.find()) {
                 String hex = formattedMatcher.group();

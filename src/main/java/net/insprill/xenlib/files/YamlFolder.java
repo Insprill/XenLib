@@ -2,7 +2,6 @@ package net.insprill.xenlib.files;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.XenLib;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,28 +62,15 @@ public class YamlFolder {
      */
     private void writeToDisk() {
         try {
-            if (MinecraftVersion.isUnitTest()) {
-                File folder = new File(String.join(File.separator, XenLib.getInstance().getUnitTestCompiledResourcesPath()) + File.separator + folderName);
-                for (File file : folder.listFiles()) {
-                    if (file.isDirectory())
-                        continue;
-                    String name = file.getPath();
-                    int idx = name.indexOf(folderName);
-                    if (idx == -1)
-                        continue;
-                    initDefaultFile(name.substring(idx));
-                }
-            } else {
-                CodeSource src = XenLib.getPlugin().getClass().getProtectionDomain().getCodeSource();
-                if (src == null) {
-                    XenLib.getPlugin().getLogger().warning("Failed to find plugin's jar file. Unable to load all default files.");
-                    return;
-                }
-                try (ZipInputStream zip = new ZipInputStream(src.getLocation().openStream())) {
-                    ZipEntry e;
-                    while ((e = zip.getNextEntry()) != null) {
-                        initDefaultFile(e.getName());
-                    }
+            CodeSource src = XenLib.getPlugin().getClass().getProtectionDomain().getCodeSource();
+            if (src == null) {
+                XenLib.getPlugin().getLogger().warning("Failed to find plugin's jar file. Unable to load all default files.");
+                return;
+            }
+            try (ZipInputStream zip = new ZipInputStream(src.getLocation().openStream())) {
+                ZipEntry e;
+                while ((e = zip.getNextEntry()) != null) {
+                    initDefaultFile(e.getName());
                 }
             }
         } catch (IOException e) {
