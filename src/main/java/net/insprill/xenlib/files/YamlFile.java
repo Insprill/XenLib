@@ -265,9 +265,28 @@ public class YamlFile {
         return section.getKeys(false);
     }
 
-    @NotNull
+    /**
+     * Gets the Class representing a config entry.
+     *
+     * @param path Path to the entry.
+     * @return Class representing the entry, or null if it doesn't exist.
+     */
+    @Nullable
     public Class<?> getDataType(String path) {
-        return null;
+        return getDataType(path, null);
+    }
+
+    /**
+     * Gets the Class representing a config entry.
+     *
+     * @param path Path to the entry.
+     * @param def  Default class if entry isn't in config.
+     * @return Class representing the entry, or the default class if it doesn't exist.
+     */
+    @Nullable
+    public Class<?> getDataType(String path, Class<?> def) {
+        Object obj = get(path);
+        return (obj == null) ? def : obj.getClass();
     }
 
     /**
