@@ -118,7 +118,7 @@ public class YamlFile {
     /**
      * Writes the internal config to disk if it doesn't exist.
      */
-    private void writeFileIfNotExists() {
+    private synchronized void writeFileIfNotExists() {
         if (file == null || file.exists())
             return;
         file.getParentFile().mkdirs();
@@ -139,7 +139,7 @@ public class YamlFile {
      *
      * @return True if an internal copy of the file was found and loaded, false otherwise.
      */
-    private boolean initInternalCfg() {
+    private synchronized boolean initInternalCfg() {
         String from = getInternalName(file);
         try (InputStream is = XenLib.getPlugin().getResource(from)) {
             if (is != null) {
