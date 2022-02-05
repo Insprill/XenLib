@@ -448,7 +448,8 @@ public class YamlFile {
      */
     @NotNull
     public List<String> getStringList(String path, List<String> def) {
-        update(path, def);
+        if (update(path, def))
+            return def;
         if (cfg.get(path) instanceof String) {
             String str = cfg.getString(path);
             if (str.contains("\n")) {
@@ -529,14 +530,17 @@ public class YamlFile {
      *
      * @param path Path to put the value.
      * @param def  The value to put.
+     * @return True if the value didn't exist and was set to the default, false otherwise.
      */
-    private void update(String path, Object def) {
+    private boolean update(String path, Object def) {
         if (!contains(path)) {
             set(path, def);
             if (autoUpdate) {
                 save();
             }
+            return true;
         }
+        return false;
     }
 
     /**
