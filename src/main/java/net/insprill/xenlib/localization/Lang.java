@@ -41,7 +41,9 @@ public class Lang {
         line = line.replace("%p%", config.getString("prefix", defaultFile.getString("prefix")));
         for (String placeholder : placeholders) {
             String[] data = placeholder.split(PLACEHOLDER_SEPARATOR);
-            line = line.replace(data[0], data[1]);
+            if (data.length >= 2) {
+                line = line.replace(data[0], data[1]);
+            }
         }
         return line;
     }
