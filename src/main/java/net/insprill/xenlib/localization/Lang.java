@@ -41,7 +41,10 @@ public class Lang {
         line = line.replace("%p%", config.getString("prefix", defaultFile.getString("prefix")));
         for (String placeholder : placeholders) {
             String[] data = placeholder.split(PLACEHOLDER_SEPARATOR);
-            if (data.length >= 2) {
+            if (data.length < 2) {
+                XenLib.getPlugin().getLogger().warning("Placeholder '" + placeholder + "' for locale message '" + node + "' is invalid! " +
+                        "Please contact author(s) " + XenLib.getPlugin().getDescription().getAuthors() + " of " + XenLib.getPlugin().getName() + ".");
+            } else {
                 line = line.replace(data[0], data[1]);
             }
         }
