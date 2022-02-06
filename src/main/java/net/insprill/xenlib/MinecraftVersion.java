@@ -144,4 +144,8 @@ public class MinecraftVersion {
         return new MinecraftVersion(major, patch, preRelease);
     }
 
+    private static String getCraftBukkitVersion() {
+        return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+    }
+
 }
