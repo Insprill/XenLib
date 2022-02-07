@@ -402,18 +402,18 @@ public class YamlFile {
     }
 
     /**
-     * Gets a {@link String} from the config.
+     * Gets a {@link String} from the config with formatted colors.
      *
      * @param path Path of the String.
      * @return The String from the config.
      */
     @Nullable
     public String getString(String path) {
-        return getString(path, internalCfg.getString(path));
+        return ColourUtils.format(getStringRaw(path));
     }
 
     /**
-     * Gets a {@link String} from the config, or writes the default if it doesn't exist.
+     * Gets a {@link String} from the config with formatted colors, or writes the default if it doesn't exist.
      *
      * @param path Path of the String.
      * @param def  String to write if it doesn't exist.
@@ -421,11 +421,34 @@ public class YamlFile {
      */
     @Nullable
     public String getString(String path, String def) {
+        return ColourUtils.format(getStringRaw(path, def));
+    }
+
+    /**
+     * Gets a {@link String} from the config without formatting colours.
+     *
+     * @param path Path of the String.
+     * @return The String from the config, or the default if it doesn't exist.
+     */
+    @Nullable
+    public String getStringRaw(String path) {
+        return getStringRaw(path, internalCfg.getString(path));
+    }
+
+    /**
+     * Gets a {@link String} from the config without formatting colours, or writes the default if it doesn't exist.
+     *
+     * @param path Path of the String.
+     * @param def  String to write if it doesn't exist.
+     * @return The String from the config, or the default if it doesn't exist.
+     */
+    @Nullable
+    public String getStringRaw(String path, String def) {
         update(path, def);
         if (cfg.get(path) instanceof List) {
-            return String.join("\n", ColourUtils.format(cfg.getStringList(path)));
+            return String.join("\n", cfg.getStringList(path));
         }
-        return ColourUtils.format(cfg.getString(path, def));
+        return cfg.getString(path, def);
     }
 
     /**
@@ -436,7 +459,7 @@ public class YamlFile {
      */
     @NotNull
     public List<String> getStringList(String path) {
-        return getStringList(path, internalCfg.getStringList(path));
+        return ColourUtils.format(getStringListRaw(path));
     }
 
     /**
@@ -448,6 +471,29 @@ public class YamlFile {
      */
     @NotNull
     public List<String> getStringList(String path, List<String> def) {
+        return ColourUtils.format(getStringListRaw(path, def));
+    }
+
+    /**
+     * Gets a {@link List<String>} from the config, or writes the default if it doesn't exist.
+     *
+     * @param path Path of the List.
+     * @return The List from the config, or the default if it doesn't exist.
+     */
+    @NotNull
+    public List<String> getStringListRaw(String path) {
+        return getStringListRaw(path, internalCfg.getStringList(path));
+    }
+
+    /**
+     * Gets a {@link List<String>} from the config, or writes the default if it doesn't exist.
+     *
+     * @param path Path of the List.
+     * @param def  List to write if it doesn't exist.
+     * @return The List from the config, or the default if it doesn't exist.
+     */
+    @NotNull
+    public List<String> getStringListRaw(String path, List<String> def) {
         if (update(path, def))
             return def;
         if (cfg.get(path) instanceof String) {
@@ -455,10 +501,10 @@ public class YamlFile {
             if (str.contains("\n")) {
                 return Arrays.asList(str.split("\n"));
             } else {
-                return Collections.singletonList(ColourUtils.format(cfg.getString(path)));
+                return Collections.singletonList(cfg.getString(path));
             }
         }
-        return ColourUtils.format(cfg.getStringList(path));
+        return cfg.getStringList(path);
     }
 
     /**
