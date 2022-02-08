@@ -48,7 +48,7 @@ public class XenLibArgPlInfo implements ICommandArgument {
     public void process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("CJM: ").append(XenLib.getPlugin().getDescription().getVersion()).append("\n");
+        builder.append(XenLib.getPlugin().getName()).append(": ").append(XenLib.getPlugin().getDescription().getVersion()).append("\n");
         builder.append("Server: ").append(Bukkit.getVersion()).append("\n");
         builder.append("API: ").append(Bukkit.getBukkitVersion()).append("\n");
         builder.append("JVM-Name: ").append(System.getProperty("java.vm.name")).append("\n");
