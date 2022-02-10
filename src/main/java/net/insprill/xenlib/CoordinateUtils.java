@@ -41,4 +41,46 @@ public class CoordinateUtils {
         return i & 0xF;
     }
 
+    /**
+     * Returns the specified block coordinates packed into a long.
+     *
+     * @return The block's x, y, and z coordinates packed into a long value.
+     */
+    public static long getBlockKey(int x, int y, int z) {
+        return ((long) x & 0x7FFFFFF) | (((long) z & 0x7FFFFFF) << 27) | ((long) y << 54);
+    }
+
+    /**
+     * Returns the x component from a packed value.
+     *
+     * @param packed The packed value, as computed by {@link CoordinateUtils#getBlockKey(int, int, int)}
+     * @return The x component from the packed value.
+     * @see CoordinateUtils#getBlockKey(int, int, int)
+     */
+    public static int getBlockKeyX(long packed) {
+        return (int) ((packed << 37) >> 37);
+    }
+
+    /**
+     * Returns the y component from a packed value.
+     *
+     * @param packed The packed value, as computed by {@link CoordinateUtils#getBlockKey(int, int, int)}
+     * @return The y component from the packed value.
+     * @see CoordinateUtils#getBlockKey(int, int, int)
+     */
+    public static int getBlockKeyY(long packed) {
+        return (int) (packed >> 54);
+    }
+
+    /**
+     * Returns the z component from a packed value.
+     *
+     * @param packed The packed value, as computed by {@link CoordinateUtils#getBlockKey(int, int, int)}
+     * @return The z component from the packed value.
+     * @see CoordinateUtils#getBlockKey(int, int, int)
+     */
+    public static int getBlockKeyZ(long packed) {
+        return (int) ((packed << 10) >> 37);
+    }
+
 }
