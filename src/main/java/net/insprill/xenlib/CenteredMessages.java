@@ -21,7 +21,8 @@ public class CenteredMessages {
         boolean previousCode = false;
         boolean isBold = false;
 
-        for (char c : message.toCharArray()) {
+        for (int i = 0; i < message.length(); i++) {
+            char c = message.charAt(i);
             if (c == '§' || c == '&') {
                 previousCode = true;
             } else if (previousCode) {
