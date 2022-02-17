@@ -5,6 +5,7 @@ import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.files.YamlFile;
 import net.insprill.xenlib.files.YamlFolder;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStreamReader;
 
@@ -68,6 +69,7 @@ public class Lang {
     /**
      * @return The YamlFile for the selected language, or the default if selected language doesn't exist.
      */
+    @NotNull
     private YamlFile getLocaleConfig() {
         String selectedLocale = YamlFile.CONFIG.getString("language", DEFAULT_LOCALE);
         YamlFile config = YamlFolder.LOCALE.getDataFile(selectedLocale);
