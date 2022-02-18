@@ -1,11 +1,12 @@
 package net.insprill.xenlib.commands.args;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
+import net.insprill.fetch4j.Response;
+import net.insprill.fetch4j.exception.FetchException;
 import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.commands.ICommandArgument;
 import net.insprill.xenlib.localization.Lang;
@@ -14,20 +15,22 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import static net.insprill.fetch4j.Fetch.fetch;
+import static net.insprill.fetch4j.Params.params;
 
 public class XenLibArgPlInfo implements ICommandArgument {
 
     @Setter
     @Getter
     private static String hastebinLink = "https://paste.insprill.net/";
+    @Setter
+    @Getter
+    private static String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36";
 
     @Override
     public String getBaseArg() {
@@ -71,17 +74,15 @@ public class XenLibArgPlInfo implements ICommandArgument {
         }
 
         try {
-            URL url = new URL(hastebinLink + "documents");
-            URLConnection conn = url.openConnection();
-            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36");
-            conn.setDoOutput(true);
-            conn.setConnectTimeout(10 * 1000);
-            conn.setReadTimeout(10 * 1000);
-            conn.getOutputStream().write(builder.toString().getBytes(Charsets.UTF_8));
-            JsonObject object = new Gson().fromJson(new InputStreamReader(conn.getInputStream(), Charsets.UTF_8), JsonObject.class);
+            Response res = fetch(hastebinLink + "documents", params()
+                    .method("POST")
+                    .header("User-Agent", userAgent)
+                    .timeout(10_000)
+                    .body(builder.toString()));
+            JsonObject object = new Gson().fromJson(res.getBody(), JsonObject.class);
             String link = hastebinLink + object.get("key").getAsString() + ".yml";
             Lang.send(sender, "commands.plinfo.success", "%link%;" + link);
-        } catch (IOException exception) {
+        } catch (FetchException exception) {
             Lang.send(sender, "commands.plinfo.fail", "%error%;" + exception.getMessage());
         }
     }
