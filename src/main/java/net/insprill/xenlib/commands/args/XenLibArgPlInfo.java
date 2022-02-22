@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
+import net.insprill.fetch4j.Params;
 import net.insprill.fetch4j.Response;
 import net.insprill.fetch4j.exception.FetchException;
 import net.insprill.xenlib.XenLib;
@@ -75,8 +76,8 @@ public class XenLibArgPlInfo implements ICommandArgument {
 
         try {
             Response res = fetch(hastebinLink + "documents", params()
-                    .method("POST")
-                    .header("User-Agent", userAgent)
+                    .method(Params.Method.POST)
+                    .userAgent(userAgent)
                     .timeout(10_000)
                     .body(builder.toString()));
             JsonObject object = new Gson().fromJson(res.getBody(), JsonObject.class);
