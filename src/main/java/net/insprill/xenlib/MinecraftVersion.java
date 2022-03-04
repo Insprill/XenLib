@@ -60,6 +60,7 @@ public class MinecraftVersion {
     public static MinecraftVersion v1_17_2 = new MinecraftVersion(17, 2);
     public static MinecraftVersion v1_18_0 = new MinecraftVersion(18, 0);
     public static MinecraftVersion v1_18_1 = new MinecraftVersion(18, 1);
+    public static MinecraftVersion v1_18_2 = new MinecraftVersion(18, 2);
 
     @Getter
     private static final MinecraftVersion currentVersion = MinecraftVersion.findCurrentVersion();
