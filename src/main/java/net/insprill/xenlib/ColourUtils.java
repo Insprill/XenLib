@@ -2,6 +2,8 @@ package net.insprill.xenlib;
 
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -41,7 +43,8 @@ public class ColourUtils {
      * @param strings List of strings to insert colours on.
      * @return List of strings with colours.
      */
-    public List<String> format(List<String> strings) {
+    public @Nullable List<String> format(@Nullable List<String> strings) {
+        if (strings == null) return strings;
         strings.replaceAll(ColourUtils::format);
         return strings;
     }
@@ -52,7 +55,8 @@ public class ColourUtils {
      * @param strings List of strings to strip colours from.
      * @return List of strings with no colours.
      */
-    public List<String> stripColor(List<String> strings) {
+    public @Nullable List<String> stripColor(@Nullable List<String> strings) {
+        if (strings == null) return strings;
         strings.replaceAll(ChatColor::stripColor);
         return strings;
     }
@@ -60,10 +64,12 @@ public class ColourUtils {
     /**
      * Removes a coloured line from a list of strings, ignoring the actual colours.
      *
-     * @param source List to remove from.
-     * @param forRemoval  String to remove.
+     * @param source     List to remove from.
+     * @param forRemoval String to remove.
      */
-    public void removeLineIgnoreColour(List<String> source, String forRemoval) {
+    public void removeLineIgnoreColour(@NotNull List<String> source, @Nullable String forRemoval) {
+        if (forRemoval == null || forRemoval.isEmpty())
+            return;
         for (int i = 0; i < source.size(); i++) {
             String str = source.get(i);
             if (ChatColor.stripColor(str).equals(ChatColor.stripColor(forRemoval))) {
@@ -76,10 +82,12 @@ public class ColourUtils {
     /**
      * Removes all lines from a list of strings, ignoring the actual colours.
      *
-     * @param source  List to remove from.
+     * @param source     List to remove from.
      * @param forRemoval Strings to remove.
      */
-    public void removeLinesIgnoreColour(List<String> source, List<String> forRemoval) {
+    public void removeLinesIgnoreColour(@NotNull List<String> source, @Nullable List<String> forRemoval) {
+        if (forRemoval == null)
+            return;
         forRemoval = stripColor(forRemoval);
         for (int i = 0; i < source.size(); i++) {
             String str = source.get(i);
