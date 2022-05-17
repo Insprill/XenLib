@@ -42,9 +42,7 @@ public class ColourUtils {
      * @return List of strings with colours.
      */
     public List<String> format(List<String> strings) {
-        for (int i = 0; i < strings.size(); i++) {
-            strings.set(i, format(strings.get(i)));
-        }
+        strings.replaceAll(ColourUtils::format);
         return strings;
     }
 
@@ -55,10 +53,41 @@ public class ColourUtils {
      * @return List of strings with no colours.
      */
     public List<String> stripColor(List<String> strings) {
-        for (int i = 0; i < strings.size(); i++) {
-            strings.set(i, ChatColor.stripColor(strings.get(i)));
-        }
+        strings.replaceAll(ChatColor::stripColor);
         return strings;
+    }
+
+    /**
+     * Removes a coloured line from a list of strings, ignoring the actual colours.
+     *
+     * @param source List to remove from.
+     * @param forRemoval  String to remove.
+     */
+    public void removeLineIgnoreColour(List<String> source, String forRemoval) {
+        for (int i = 0; i < source.size(); i++) {
+            String str = source.get(i);
+            if (ChatColor.stripColor(str).equals(ChatColor.stripColor(forRemoval))) {
+                source.remove(i);
+                i--;
+            }
+        }
+    }
+
+    /**
+     * Removes all lines from a list of strings, ignoring the actual colours.
+     *
+     * @param source  List to remove from.
+     * @param forRemoval Strings to remove.
+     */
+    public void removeLinesIgnoreColour(List<String> source, List<String> forRemoval) {
+        forRemoval = stripColor(forRemoval);
+        for (int i = 0; i < source.size(); i++) {
+            String str = source.get(i);
+            if (forRemoval.contains(ChatColor.stripColor(str))) {
+                source.remove(i);
+                i--;
+            }
+        }
     }
 
 }
