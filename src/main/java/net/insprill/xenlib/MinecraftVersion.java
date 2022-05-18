@@ -145,8 +145,20 @@ public class MinecraftVersion {
         return new MinecraftVersion(major, patch, preRelease);
     }
 
+    /**
+     * Attempts to get the CraftBukkit version from the server implementation's path.
+     * If it cannot be found, it will approximate based off the major/path versions.
+     *
+     * @return Approximate CraftBukkit version.
+     */
     public static String getCraftBukkitVersion() {
-        return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+        String[] pckg = Bukkit.getServer().getClass().getPackage().getName().split("\\.");
+        if (pckg.length >= 4) {
+            return pckg[3];
+        } else {
+            MinecraftVersion current = getCurrentVersion();
+            return "v1_" + current.major + "_R" + current.patch;
+        }
     }
 
 }
