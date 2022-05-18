@@ -125,7 +125,8 @@ public class YamlFolder {
      */
     public YamlFile createFile(String name) {
         YamlFile file = new YamlFile(folderName + File.separator + name);
-        dataFiles.put(file.getName(), file);
+        String fileName = file.getFile().getPath().replace(XenLib.getPlugin().getDataFolder().getAbsolutePath() + File.separator, "");
+        dataFiles.put(fileName, file);
         return file;
     }
 
