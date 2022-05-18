@@ -91,8 +91,8 @@ public class YamlFolder {
         File file = new File(XenLib.getPlugin().getDataFolder(), name);
         if (file.isDirectory())
             return;
-        name = name.replace("/", File.separator);
-        dataFiles.put(name, new YamlFile(file, autoUpdate));
+        YamlFile config = new YamlFile(file, autoUpdate);
+        dataFiles.put(config.getFile().getAbsolutePath(), config);
     }
 
     /**
@@ -124,10 +124,9 @@ public class YamlFolder {
      * @return The new {@link YamlFile}.
      */
     public YamlFile createFile(String name) {
-        YamlFile file = new YamlFile(folderName + File.separator + name);
-        String fileName = file.getFile().getPath().replace(XenLib.getPlugin().getDataFolder().getAbsolutePath() + File.separator, "");
-        dataFiles.put(fileName, file);
-        return file;
+        YamlFile config = new YamlFile(folderName + File.separator + name);
+        dataFiles.put(config.getFile().getAbsolutePath(), config);
+        return config;
     }
 
     /**
@@ -137,8 +136,7 @@ public class YamlFolder {
         for (File sub : getNestedFiles(folder)) {
             if (!isYamlFile(sub.getName()))
                 continue;
-            String fileName = sub.getPath().replace(XenLib.getPlugin().getDataFolder().getAbsolutePath() + File.separator, "");
-            dataFiles.put(fileName, new YamlFile(sub, autoUpdate));
+            dataFiles.put(sub.getAbsolutePath(), new YamlFile(sub, autoUpdate));
         }
     }
 
@@ -163,6 +161,7 @@ public class YamlFolder {
     @Nullable
     public YamlFile getDataFile(String name) {
         name = name.replace("/", File.separator);
+        name = (name.startsWith(XenLib.getPlugin().getDataFolder().getAbsolutePath())) ? name : XenLib.getPlugin().getDataFolder().getAbsolutePath() + File.separator + name;
         name = (name.startsWith(folderName)) ? name : folderName + File.separator + name;
         name = (name.endsWith(".yml")) ? name : name + ".yml";
         return dataFiles.get(name);
@@ -176,8 +175,7 @@ public class YamlFolder {
      */
     @Nullable
     public YamlFile getDataFile(File file) {
-        String fileName = file.getPath().replace(XenLib.getPlugin().getDataFolder().getPath() + File.separator, "");
-        return getDataFile(fileName);
+        return getDataFile(file.getAbsolutePath());
     }
 
     /**
