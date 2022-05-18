@@ -153,6 +153,16 @@ public class YamlFolder {
     }
 
     /**
+     * Whether a {@link YamlFile} is present in this folder.
+     *
+     * @param name Name of the YamlFile.
+     * @return True if the YamlFile is present, false otherwise.
+     */
+    public boolean contains(String name) {
+        return getDataFile(name) != null;
+    }
+
+    /**
      * Gets a {@link YamlFile} from a file name.
      *
      * @param name Name of config file to get (with or without .yml).
