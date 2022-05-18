@@ -156,8 +156,7 @@ public class MinecraftVersion {
         if (pckg.length >= 4) {
             return pckg[3];
         } else {
-            MinecraftVersion current = getCurrentVersion();
-            return "v1_" + current.major + "_R" + current.patch;
+            return "N/A";
         }
     }
 
