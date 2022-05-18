@@ -74,7 +74,9 @@ public class Lang {
         String selectedLocale = YamlFile.CONFIG.getString("language", DEFAULT_LOCALE);
         YamlFile config = YamlFolder.LOCALE.getDataFile(selectedLocale);
         if (config == null) {
-            config = YamlFolder.LOCALE.getDataFile(DEFAULT_LOCALE);
+            config = YamlFolder.LOCALE.contains(DEFAULT_LOCALE)
+                    ? YamlFolder.LOCALE.getDataFile(DEFAULT_LOCALE)
+                    : defaultFile;
             XenLib.getPlugin().getLogger().severe("Locale file '" + selectedLocale + "' could not be found! Defaulting to " + DEFAULT_LOCALE + ".");
         }
         return config;
