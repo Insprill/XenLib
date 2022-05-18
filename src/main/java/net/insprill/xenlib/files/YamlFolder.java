@@ -161,8 +161,8 @@ public class YamlFolder {
     @Nullable
     public YamlFile getDataFile(String name) {
         name = name.replace("/", File.separator);
-        name = (name.startsWith(XenLib.getPlugin().getDataFolder().getAbsolutePath())) ? name : XenLib.getPlugin().getDataFolder().getAbsolutePath() + File.separator + name;
-        name = (name.startsWith(folderName)) ? name : folderName + File.separator + name;
+        String path = XenLib.getPlugin().getDataFolder().getAbsolutePath() + File.separator + folderName + File.separator + name;
+        name = (name.startsWith(path)) ? name : path;
         name = (name.endsWith(".yml")) ? name : name + ".yml";
         return dataFiles.get(name);
     }
