@@ -57,7 +57,6 @@ public class MinecraftVersion {
     public static MinecraftVersion v1_16_5 = new MinecraftVersion(16, 5);
     public static MinecraftVersion v1_17_0 = new MinecraftVersion(17, 0);
     public static MinecraftVersion v1_17_1 = new MinecraftVersion(17, 1);
-    public static MinecraftVersion v1_17_2 = new MinecraftVersion(17, 2);
     public static MinecraftVersion v1_18_0 = new MinecraftVersion(18, 0);
     public static MinecraftVersion v1_18_1 = new MinecraftVersion(18, 1);
     public static MinecraftVersion v1_18_2 = new MinecraftVersion(18, 2);
