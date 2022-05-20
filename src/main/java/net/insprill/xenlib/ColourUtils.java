@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class ColourUtils {
 
-    public static final Pattern hexPattern = Pattern.compile("#[a-fA-F0-9]{6}");
-    public static final Pattern formattedHexPattern = Pattern.compile("[?:{<&]?#[a-fA-F0-9]{6}[}>]?");
+    public static final Pattern hexPattern = Pattern.compile("#[a-fA-F\\d]{6}");
+    public static final Pattern formattedHexPattern = Pattern.compile("[?:{<&]?#[a-fA-F\\d]{6}[}>]?");
 
     /**
      * Replaces colour codes with actual colours, and if on 1.16+, hex colour codes.
