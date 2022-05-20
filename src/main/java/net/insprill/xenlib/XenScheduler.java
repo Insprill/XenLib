@@ -43,6 +43,17 @@ public class XenScheduler {
     }
 
     /**
+     * Runs a Runnable every x ticks asynchronously.
+     *
+     * @param initialDelay The time to delay the first execution.
+     * @param period       The period between successive executions.
+     * @return The Task ID.
+     */
+    public int runTaskTimerAsync(Runnable task, long initialDelay, long period) {
+        return Bukkit.getScheduler().runTaskTimerAsynchronously(XenLib.getPlugin(), task, initialDelay, period).getTaskId();
+    }
+
+    /**
      * Runs a Runnable at the next server tick.
      *
      * @return The Task ID.
