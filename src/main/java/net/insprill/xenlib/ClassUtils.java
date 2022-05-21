@@ -40,7 +40,7 @@ public class ClassUtils {
                 .filter(info -> (deep && info.getPackageName().startsWith(packageName)) || (!deep && info.getPackageName().equals(packageName)))
                 .map(ClassPath.ClassInfo::load)
                 .filter(targetInterface::isAssignableFrom)
-                .filter(clazz -> clazz != targetInterface || clazz.isInterface())
+                .filter(clazz -> clazz != targetInterface && !clazz.isInterface())
                 .map(clazz -> (Class<T>) clazz)
                 .collect(Collectors.toSet());
     }
