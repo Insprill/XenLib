@@ -87,6 +87,14 @@ public class MinecraftVersion {
         return currentVersion.getMajor() >= 13;
     }
 
+    public static boolean is(MinecraftVersion version) {
+        return currentVersion.getMajor() == version.getMajor() && currentVersion.getPatch() == version.getPatch();
+    }
+
+    public static boolean isMajor(MinecraftVersion version) {
+        return currentVersion.getMajor() == version.getMajor();
+    }
+
     public static boolean isNewerThan(MinecraftVersion version) {
         return currentVersion.getMajor() > version.getMajor() && currentVersion.getPatch() > version.getPatch();
     }
@@ -146,9 +154,9 @@ public class MinecraftVersion {
 
     /**
      * Attempts to get the CraftBukkit version from the server implementation's path.
-     * If it cannot be found, it will approximate based off the major/path versions.
+     * If it cannot be found, it will return 'N/A'.
      *
-     * @return Approximate CraftBukkit version.
+     * @return CraftBukkit version.
      */
     public static String getCraftBukkitVersion() {
         String[] pckg = Bukkit.getServer().getClass().getPackage().getName().split("\\.");
