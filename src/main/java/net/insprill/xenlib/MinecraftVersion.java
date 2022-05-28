@@ -79,30 +79,58 @@ public class MinecraftVersion {
         this(major, patch, 0);
     }
 
+    /**
+     * Gets the display name of a version. E.g. "1.8.8" or "1.18". Ignores pre-release versions.
+     *
+     * @return The display name of the version.
+     */
     public String getDisplayName() {
         return "1." + major + ((patch == 0) ? "" : "." + patch);
     }
 
+    /**
+     * @return Whether the version is at least 1.13.
+     */
     public static boolean isNew() {
         return currentVersion.getMajor() >= 13;
     }
 
+    /**
+     * @param version The version to check.
+     * @return Whether the current server version matches the provided version.
+     */
     public static boolean is(MinecraftVersion version) {
         return currentVersion.getMajor() == version.getMajor() && currentVersion.getPatch() == version.getPatch();
     }
 
+    /**
+     * @param version The version to check.
+     * @return Whether the current server major version matches the provided major version.
+     */
     public static boolean isMajor(MinecraftVersion version) {
         return currentVersion.getMajor() == version.getMajor();
     }
 
+    /**
+     * @param version The version to check.
+     * @return Whether the current server version is newer than the provided version.
+     */
     public static boolean isNewerThan(MinecraftVersion version) {
         return currentVersion.getMajor() > version.getMajor() && currentVersion.getPatch() > version.getPatch();
     }
 
+    /**
+     * @param version The version to check.
+     * @return Whether the current server version is at least the provided version.
+     */
     public static boolean isAtLeast(MinecraftVersion version) {
         return currentVersion.getMajor() >= version.getMajor() && currentVersion.getPatch() >= version.getPatch();
     }
 
+    /**
+     * @param version The version to check.
+     * @return Whether the current server version is older than the provided version.
+     */
     public static boolean isOlderThan(MinecraftVersion version) {
         return currentVersion.getMajor() < version.getMajor() && currentVersion.getPatch() < version.getPatch();
     }
