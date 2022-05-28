@@ -22,6 +22,16 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
 }
 
+task javadocJar(type: Jar) {
+    classifier('javadoc')
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier('sources')
+    from sourceSets.main.allSource
+}
+
 publishing {
     publications {
         XenLib(MavenPublication) {
