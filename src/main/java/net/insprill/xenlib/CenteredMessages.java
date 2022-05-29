@@ -11,7 +11,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CenteredMessages {
 
-    private final static int CENTER_PX = 154;
+    private static final int CENTER_PX = 154;
 
     public String centerMessage(String message) {
         if (message == null || message.isEmpty())

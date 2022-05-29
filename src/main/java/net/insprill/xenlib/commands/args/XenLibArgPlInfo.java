@@ -17,6 +17,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +91,7 @@ public class XenLibArgPlInfo implements ICommandArgument {
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

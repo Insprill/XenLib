@@ -12,10 +12,10 @@ import java.io.InputStreamReader;
 @UtilityClass
 public class Lang {
 
-    private static final String PLACEHOLDER_SEPARATOR = ";";
-    private static final String DEFAULT_LOCALE = "en-us";
+    private final String PLACEHOLDER_SEPARATOR = ";";
+    private final String DEFAULT_LOCALE = "en-us";
 
-    private static YamlFile defaultFile;
+    private YamlFile defaultFile;
 
     /**
      * Initializes the default locale YamlFile.

@@ -70,13 +70,7 @@ public class ColourUtils {
     public void removeLineIgnoreColour(@NotNull List<String> source, @Nullable String forRemoval) {
         if (forRemoval == null || forRemoval.isEmpty())
             return;
-        for (int i = 0; i < source.size(); i++) {
-            String str = source.get(i);
-            if (ChatColor.stripColor(str).equals(ChatColor.stripColor(forRemoval))) {
-                source.remove(i);
-                i--;
-            }
-        }
+        source.removeIf(line -> ChatColor.stripColor(line).equals(ChatColor.stripColor(forRemoval)));
     }
 
     /**
@@ -88,14 +82,8 @@ public class ColourUtils {
     public void removeLinesIgnoreColour(@NotNull List<String> source, @Nullable List<String> forRemoval) {
         if (forRemoval == null)
             return;
-        forRemoval = stripColor(forRemoval);
-        for (int i = 0; i < source.size(); i++) {
-            String str = source.get(i);
-            if (forRemoval.contains(ChatColor.stripColor(str))) {
-                source.remove(i);
-                i--;
-            }
-        }
+        stripColor(forRemoval);
+        source.removeIf(line -> forRemoval.contains(ChatColor.stripColor(line)));
     }
 
 }

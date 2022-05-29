@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -96,13 +97,13 @@ public class XenLibArgHelp implements ICommandArgument {
     }
 
     private int getPageCount() {
-        return (int) Math.ceil((float) cmd.getCommandArgs().size() / (float) commandsPerPage);
+        return (int) Math.ceil((float) cmd.getCommandArgs().size() / commandsPerPage);
     }
 
     @Override
     public @Nullable List<String> tabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
         if (args.length != 2)
-            return null;
+            return Collections.emptyList();
 
         List<String> returnArgs = new ArrayList<>();
         for (int i = 1; i <= getPageCount(); i++) {

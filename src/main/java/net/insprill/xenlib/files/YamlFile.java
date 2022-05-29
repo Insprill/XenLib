@@ -63,8 +63,10 @@ public class YamlFile {
      * @param autoUpdate Toggles whether defaults that don't exist in the file should be written to disk.
      */
     public YamlFile(String name, boolean autoUpdate) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty!");
+        }
         this.autoUpdate = autoUpdate;
-        assert name != null : "File name cannot be null!";
         name = name.endsWith(".yml") ? name : name + ".yml";
         name = name.replace("/", File.separator).replace("\\", File.separator);
         file = new File(XenLib.getPlugin().getDataFolder() + File.separator + name);
