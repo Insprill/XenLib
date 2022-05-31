@@ -3,15 +3,19 @@ package net.insprill.xenlib;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
+import java.util.List;
+
 /**
- * https://www.spigotmc.org/threads/95872/
- *
- * @author SirSpoodles
+ * @author <a href="https://www.spigotmc.org/threads/95872/">SirSpoodles</a>
  */
 @UtilityClass
 public class CenteredMessages {
 
     private static final int CENTER_PX = 154;
+
+    public void centerMessages(List<String> messages) {
+        messages.replaceAll(CenteredMessages::centerMessage);
+    }
 
     public String centerMessage(String message) {
         if (message == null || message.isEmpty())
