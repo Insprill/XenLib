@@ -216,6 +216,14 @@ public class YamlFile {
     }
 
     /**
+     * Resets the config to the internal version, or an empty config if no internal version is found.
+     * Does <b>not</b> write to disk.
+     */
+    public synchronized void reset() {
+        cfg = internalCfg;
+    }
+
+    /**
      * Gets the internal file name of a file.
      *
      * @param file File to get internal name of.
