@@ -1,37 +1,31 @@
 package net.insprill.xenlib;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.experimental.UtilityClass;
 import net.insprill.xenlib.localization.Lang;
 import net.insprill.xenlib.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@UtilityClass
 public final class XenLib {
 
-    @Getter
-    private static XenLib instance;
-    private final JavaPlugin plugin;
-    @Getter @Setter
-    private String[] unitTestCompiledResourcesPath;
+    private JavaPlugin plugin;
 
-    public XenLib(JavaPlugin plugin) {
-        this.plugin = plugin;
-        instance = this;
-
+    public void init(JavaPlugin plugin) {
+        XenLib.plugin = plugin;
         Lang.initConfig();
         Logger.setPlugin(plugin);
     }
 
-    public static JavaPlugin getPlugin() {
-        if (instance == null || instance.plugin == null) {
+    public JavaPlugin getPlugin() {
+        if (plugin == null) {
             Bukkit.getLogger().severe("XenLib plugin instance is null! Did you forget to initialize it in your onEnable?");
             return null;
         }
-        return instance.plugin;
+        return plugin;
     }
 
-    public static boolean isJUnitTest() {
+    public boolean isJUnitTest() {
         for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
             if (element.getClassName().startsWith("org.junit.")) {
                 return true;
