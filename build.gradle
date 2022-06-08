@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'io.freefair.lombok' version '6.4.3'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'net.insprill'
@@ -17,24 +18,24 @@ repositories {
 }
 
 dependencies {
-    api 'net.insprill:fetch4j:1.3.1'
     compileOnly 'org.jetbrains:annotations:23.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
+    shadow 'net.insprill:fetch4j:1.3.1'
 }
 
-task javadocJar(type: Jar) {
-    classifier('javadoc')
-    from javadoc
-}
+shadowJar {
+    archiveClassifier.set('')
 
-task sourcesJar(type: Jar) {
-    classifier('sources')
-    from sourceSets.main.allSource
+    configurations = [project.configurations.shadow]
+
+    def libPackage = 'net.insprill.xenlib.libs'
+    relocate("net.insprill.fetch4j", "${libPackage}.net.insprill.fetch4j")
 }
+build.dependsOn(shadowJar)
 
 publishing {
     publications {
-        XenLib(MavenPublication) {
+        shadow(MavenPublication) {
             from components.java
         }
     }
