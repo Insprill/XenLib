@@ -15,6 +15,7 @@ public class MinecraftVersion {
 
     private static final Pattern versionPattern = Pattern.compile("(?i)\\(MC: (\\d)\\.(\\d+)\\.?(\\d+?)?(?: Pre-Release )?(\\d)?\\)");
 
+    // region Versions
     public static final MinecraftVersion v1_8_0 = new MinecraftVersion(8, 0);
     public static final MinecraftVersion v1_8_1 = new MinecraftVersion(8, 1);
     public static final MinecraftVersion v1_8_2 = new MinecraftVersion(8, 2);
@@ -60,6 +61,8 @@ public class MinecraftVersion {
     public static final MinecraftVersion v1_18_0 = new MinecraftVersion(18, 0);
     public static final MinecraftVersion v1_18_1 = new MinecraftVersion(18, 1);
     public static final MinecraftVersion v1_18_2 = new MinecraftVersion(18, 2);
+    public static final MinecraftVersion v1_19_0 = new MinecraftVersion(19, 0);
+    // endregion
 
     @Getter
     private static final MinecraftVersion currentVersion = MinecraftVersion.findCurrentVersion();
