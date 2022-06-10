@@ -60,7 +60,7 @@ public class YamlFile {
      * @param name Name of the config file. Doesn't need to end with ".yml", but can.
      */
     public YamlFile(String name) {
-        Preconditions.checkArgument(name != null && name.isEmpty(), "Name cannot be null or empty");
+        Preconditions.checkArgument(name != null && !name.isEmpty(), "Name cannot be null or empty");
         name = name.endsWith(".yml") ? name : name + ".yml";
         name = name.replace("/", File.separator).replace("\\", File.separator);
         file = new File(XenLib.getPlugin().getDataFolder() + File.separator + name);
