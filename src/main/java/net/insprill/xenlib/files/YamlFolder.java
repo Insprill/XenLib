@@ -91,7 +91,7 @@ public class YamlFolder {
         File file = new File(XenLib.getPlugin().getDataFolder(), name);
         if (file.isDirectory())
             return;
-        YamlFile config = new YamlFile(file, autoUpdate);
+        YamlFile config = new YamlFile(file).setAutoUpdate(true);
         dataFiles.put(config.getFile().getAbsolutePath(), config);
     }
 
@@ -136,7 +136,7 @@ public class YamlFolder {
         for (File sub : getNestedFiles(folder)) {
             if (!isYamlFile(sub.getName()))
                 continue;
-            dataFiles.put(sub.getAbsolutePath(), new YamlFile(sub, autoUpdate));
+            dataFiles.put(sub.getAbsolutePath(), new YamlFile(sub).setAutoUpdate(autoUpdate));
         }
     }
 

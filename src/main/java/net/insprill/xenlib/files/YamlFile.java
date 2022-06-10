@@ -1,9 +1,11 @@
 package net.insprill.xenlib.files;
 
+import com.google.common.base.Preconditions;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import net.insprill.xenlib.ColourUtils;
 import net.insprill.xenlib.Conversions;
 import net.insprill.xenlib.XenLib;
@@ -40,8 +42,13 @@ public class YamlFile {
     @Getter
     private YamlConfiguration cfg;
     private YamlConfiguration internalCfg = new YamlConfiguration();
+    @Getter
+    @Accessors(chain = true)
     @ToString.Include
     private boolean autoUpdate = true;
+    @Getter
+    @ToString.Include
+    private boolean modifiable = true;
 
     @Getter
     @ToString.Include
@@ -53,20 +60,7 @@ public class YamlFile {
      * @param name Name of the config file. Doesn't need to end with ".yml", but can.
      */
     public YamlFile(String name) {
-        this(name, true);
-    }
-
-    /**
-     * Creates a new YamlFile.
-     *
-     * @param name       Name of the config file. Doesn't need to end with ".yml", but can.
-     * @param autoUpdate Toggles whether defaults that don't exist in the file should be written to disk.
-     */
-    public YamlFile(String name, boolean autoUpdate) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null or empty!");
-        }
-        this.autoUpdate = autoUpdate;
+        Preconditions.checkArgument(name != null && name.isEmpty(), "Name cannot be null or empty");
         name = name.endsWith(".yml") ? name : name + ".yml";
         name = name.replace("/", File.separator).replace("\\", File.separator);
         file = new File(XenLib.getPlugin().getDataFolder() + File.separator + name);
@@ -83,18 +77,7 @@ public class YamlFile {
      * @param file File of the config.
      */
     public YamlFile(File file) {
-        this(file, false);
-    }
-
-    /**
-     * Creates a new YamlFile.
-     *
-     * @param file       File of the config.
-     * @param autoUpdate Toggles whether defaults that don't exist in the file should be written to disk.
-     */
-    public YamlFile(File file, boolean autoUpdate) {
         this.file = file;
-        this.autoUpdate = autoUpdate;
         file.getParentFile().mkdirs();
         writeFileIfNotExists();
         reload();
@@ -115,6 +98,32 @@ public class YamlFile {
         cfg.load(reader);
         internalCfg = cfg;
         isLoaded = true;
+    }
+
+    /**
+     * Sets default values will automatically be written to the file.
+     *
+     * @param autoUpdate Whether this config auto updates.
+     * @return This config.
+     */
+    public YamlFile setAutoUpdate(boolean autoUpdate) {
+        if (autoUpdate && !modifiable)
+            setModifiable(true);
+        this.autoUpdate = autoUpdate;
+        return this;
+    }
+
+    /**
+     * Sets whether this config is modifiable.
+     *
+     * @param modifiable Whether this config is modifiable.
+     * @return This config.
+     */
+    public YamlFile setModifiable(boolean modifiable) {
+        if (!modifiable && autoUpdate)
+            setAutoUpdate(false);
+        this.modifiable = modifiable;
+        return this;
     }
 
 
@@ -607,6 +616,7 @@ public class YamlFile {
      * @param obj  Object to put.
      */
     public void set(String path, Object obj) {
+        Preconditions.checkArgument(modifiable, "Cannot set values in a non-modifiable config");
         cfg.set(path, obj);
     }
     //</editor-fold>
