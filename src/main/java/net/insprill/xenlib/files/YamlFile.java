@@ -210,17 +210,26 @@ public class YamlFile {
             cfg = new YamlConfiguration();
             cfg.load(file);
             isLoaded = true;
-        } catch (IOException | InvalidConfigurationException e) {
-            autoUpdate = false;
-            isLoaded = false;
-            String from = getInternalName(file);
-            XenLib.getPlugin().getLogger().severe("Failed to load config file \"" + from + "\"! Please ensure that it doesn't have any syntax errors. " +
-                    "You can check for syntax errors with this website: \"https://www.yamlchecker.com/\". " +
-                    "If you see any errors this, this is most likely the cause of them.");
-            if (initInternalCfg()) {
-                cfg = internalCfg;
-                isLoaded = true;
-            }
+        } catch (InvalidConfigurationException e) {
+            XenLib.getPlugin().getLogger().severe("Failed to load config file \"" + getInternalName(file) + "\" as it has syntax errors! " +
+                    "Use this website to find them: \"https://www.yamlchecker.com/\". ");
+            onLoadFailure();
+        } catch (IOException e) {
+            e.printStackTrace();
+            XenLib.getPlugin().getLogger().severe("Failed to load config file \"" + getInternalName(file) + "\"!");
+            onLoadFailure();
+        }
+    }
+
+    /**
+     * Utility method for {@link #reload} when an exception is thrown.
+     */
+    private void onLoadFailure() {
+        setAutoUpdate(false);
+        isLoaded = false;
+        if (initInternalCfg()) {
+            cfg = internalCfg;
+            isLoaded = true;
         }
     }
 
