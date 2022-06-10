@@ -21,7 +21,7 @@ public class Lang {
      * Initializes the default locale YamlFile.
      */
     public void initConfig() {
-        defaultFile = new YamlFile(new InputStreamReader(XenLib.getPlugin().getResource("locale/" + DEFAULT_LOCALE + ".yml")));
+        defaultFile = new YamlFile(new InputStreamReader(XenLib.getPlugin().getResource("locale/" + DEFAULT_LOCALE + ".yml"))).setModifiable(false);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Lang {
      * @return The YamlFile for the selected language, or the default if selected language doesn't exist.
      */
     @NotNull
-    private YamlFile getLocaleConfig() {
+    public YamlFile getLocaleConfig() {
         String selectedLocale = YamlFile.CONFIG.getString("language", DEFAULT_LOCALE);
         YamlFile config = YamlFolder.LOCALE.getDataFile(selectedLocale);
         if (config == null) {
