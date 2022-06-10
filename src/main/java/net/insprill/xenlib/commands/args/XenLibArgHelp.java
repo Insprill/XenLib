@@ -46,7 +46,7 @@ public class XenLibArgHelp implements ICommandArgument {
     }
 
     @Override
-    public void process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public boolean process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         long page = (args.length >= 2 && XenMath.isInteger(args[1]))
                 ? Integer.parseInt(args[1])
                 : 1;
@@ -94,6 +94,7 @@ public class XenLibArgHelp implements ICommandArgument {
             footerBuilder.append("=");
         }
         sender.sendMessage(ColourUtils.format(footerBuilder.toString()));
+        return true;
     }
 
     private int getPageCount() {

@@ -50,7 +50,7 @@ public class XenLibArgPlInfo implements ICommandArgument {
     }
 
     @Override
-    public void process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public boolean process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         StringBuilder builder = new StringBuilder();
 
         builder.append(XenLib.getPlugin().getName()).append(": ").append(XenLib.getPlugin().getDescription().getVersion()).append("\n");
@@ -87,6 +87,7 @@ public class XenLibArgPlInfo implements ICommandArgument {
         } catch (FetchException exception) {
             Lang.send(sender, "commands.plinfo.fail", "%error%;" + exception.getMessage());
         }
+        return true;
     }
 
     @Override
