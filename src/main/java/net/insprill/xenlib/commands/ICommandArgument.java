@@ -47,7 +47,7 @@ public interface ICommandArgument {
      * @param label  The command's label.
      * @param args   All command arguments.
      */
-    void process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
+    boolean process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
 
     /**
      * @param sender CommandSender who initiated the command.

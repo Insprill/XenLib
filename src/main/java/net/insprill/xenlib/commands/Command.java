@@ -92,7 +92,11 @@ public class Command implements TabExecutor {
             return true;
         }
 
-        arg.process(sender, label, args);
+        boolean valid = arg.process(sender, label, args);
+        if (!valid) {
+            Lang.send(sender, "commands.invalid-usage", "%label%;" + label);
+        }
+
         return true;
     }
 
