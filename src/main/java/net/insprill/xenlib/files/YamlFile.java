@@ -66,9 +66,7 @@ public class YamlFile {
         file = new File(XenLib.getPlugin().getDataFolder() + File.separator + name);
         writeFileIfNotExists();
         reload();
-        if (autoUpdate) {
-            initInternalCfg();
-        }
+        initInternalCfg();
     }
 
     /**
@@ -81,9 +79,7 @@ public class YamlFile {
         file.getParentFile().mkdirs();
         writeFileIfNotExists();
         reload();
-        if (autoUpdate) {
-            initInternalCfg();
-        }
+        initInternalCfg();
     }
 
     /**
@@ -608,11 +604,11 @@ public class YamlFile {
      * @return True if the value didn't exist and was set to the default, false otherwise.
      */
     private boolean update(String path, Object def) {
+        if (!modifiable || !autoUpdate)
+            return true;
         if (!contains(path)) {
             set(path, def);
-            if (autoUpdate) {
-                save();
-            }
+            save();
             return true;
         }
         return false;
