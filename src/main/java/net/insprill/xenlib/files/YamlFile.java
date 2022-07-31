@@ -605,7 +605,7 @@ public class YamlFile {
      */
     private boolean update(String path, Object def) {
         if (!modifiable || !autoUpdate)
-            return true;
+            return false;
         if (!contains(path)) {
             set(path, def);
             save();
