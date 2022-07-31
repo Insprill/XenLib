@@ -12,10 +12,16 @@
 <h1 align="center">XenLib</h1>
   <p align="center">
     XenLib is a simple library developed to use in my Spigot plugins.
-    <br />
+    <br>
+    <br>
+    <b>WARNING:</b>
+    <br>
+    This repository is being phased out and is only receiving critical fixes.
+    <br>
+    <br>
     <a href="https://insprill.net/javadocs/xenlib"><strong>View Javadocs »</strong></a>
-    <br />
-    <br />
+    <br>
+    <br>
     <a href="https://github.com/Insprill/Custom-Join-Messages">View Demo</a>
     ·
     <a href="https://github.com/Insprill/XenLib/issues">Report Bugs</a>
