@@ -519,8 +519,10 @@ public class YamlFile {
      */
     @NotNull
     public List<String> getStringListRaw(String path, List<String> def) {
-        if (update(path, def))
+        update(path, def);
+        if (!cfg.contains(path)) {
             return def;
+        }
         if (cfg.get(path) instanceof String) {
             String str = cfg.getString(path);
             if (str.contains("\n")) {
