@@ -4,6 +4,8 @@ import lombok.Setter;
 import lombok.experimental.UtilityClass;
 import org.bukkit.plugin.Plugin;
 
+import java.util.logging.Level;
+
 @UtilityClass
 public class Logger {
 
@@ -23,6 +25,11 @@ public class Logger {
     public void severe(String str) {
         if (plugin == null) return;
         plugin.getLogger().severe(str);
+    }
+
+    public void severe(String str, Throwable e) {
+        if (plugin == null) return;
+        plugin.getLogger().log(Level.SEVERE, str, e);
     }
 
 }
