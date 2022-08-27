@@ -40,7 +40,7 @@ public class CenteredMessages {
         }
 
         int halvedMessageSize = messagePxSize >> 1;
-        int toCompensate = CENTER_PX - halvedMessageSize;
+        int toCompensate = Math.abs(CENTER_PX - halvedMessageSize);
         int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
         int compensated = 0;
         StringBuilder sb = new StringBuilder(toCompensate);
