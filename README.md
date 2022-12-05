@@ -7,28 +7,26 @@
 
 
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
-<h1 align="center">XenLib</h1>
-  <p align="center">
+<div align="center">
+  <h1>XenLib</h1>
+  <p>
+    <h3>⚠️ Warning ⚠️</h3>
+    <h5>
+        XenLib is no longer being maintained! It represents several bad programming practices, and other libraries
+        do what it did better. This repository exists purely for historical reasons. Use at your own risk!
+    </h5>
     XenLib is a simple library developed to use in my Spigot plugins.
-    <br>
-    <br>
-    <b>WARNING:</b>
-    <br>
-    This repository is being phased out and is only receiving critical fixes.
-    <br>
-    <br>
+    <br />
     <a href="https://insprill.net/javadocs/xenlib"><strong>View Javadocs »</strong></a>
-    <br>
-    <br>
+    <br />
+    <br />
     <a href="https://github.com/Insprill/Custom-Join-Messages">View Demo</a>
     ·
     <a href="https://github.com/Insprill/XenLib/issues">Report Bugs</a>
     ·
     <a href="https://github.com/Insprill/XenLib/issues">Request Features</a>
   </p>
-</p>
+</div>
 
 
 
